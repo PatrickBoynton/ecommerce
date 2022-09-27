@@ -1,10 +1,9 @@
 import express from "express"
 import dotenv from "dotenv"
 import products from "./data/products"
-import path from "path"
-import sequelize from "./config/sequelize"
+import { syncDb } from "./config/syncDb"
 
-dotenv.config({path: path.join(process.cwd(), ".env")})
+dotenv.config({path: "./config/.env"})
 
 const app = express()
 
@@ -20,11 +19,10 @@ app.get("/", (req, res) => {
     res.send(products)
 })
 
-const {PORT} = process.env
-
 const port = Math.round(Math.random() * (9000 - 8000) + 8000)
 
-sequelize.sync({alter: true, logging: false})
+
+syncDb()
 
 
-app.listen(port, () => console.log(`Now listening on port ${port}`))
+app.listen(port, () => console.log(`Now listening on port http://localhost:${port}`))
