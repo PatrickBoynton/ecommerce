@@ -1,4 +1,4 @@
-const proudcts = [
+const products = [
     {
         id: 1,
         name: "Airpods Wireless Bluetooth Headphones",
@@ -37,4 +37,4 @@ const proudcts = [
     }
 ]
 
-export default proudcts;
+export default products;
