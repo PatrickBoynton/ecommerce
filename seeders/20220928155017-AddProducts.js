@@ -10,7 +10,6 @@ const products = [
 		price: 89.99,
 		countInStock: 3,
 		rating: 4.5,
-		reviews: 4
 	},
 	{
 		id: 2,
@@ -22,22 +21,21 @@ const products = [
 		price: 200.99,
 		countInStock: 2,
 		rating: 4,
-		reviews: 2
 	},
 	{
 		id: 3,
 		name: "Color Pencils",
 		image: "An Image URL",
-		description: "My fellow Earthicans, as I have explained in my book 'Earth in the Balance'', and the much more popular ''Harry Potter and the Balance of Earth', we need to defend our planet against pollution. Also dark wizards. Incidentally, you have a dime up your nose.",
+		description: "My fellow Earthicans, as I have explained in my book 'Earth in the Balance'', and the much more popular ''Harry Potter and the Balance of Earth', we need to defend our planet against pollution.",
 		brand: "Artsy Co",
 		category: "Art and Education",
 		price: 10.99,
 		countInStock: 2,
 		rating: 4,
-		reviews: 2
 	}
 ]
 
+// eslint-disable-next-line no-undef
 module.exports = {
 	async up (queryInterface, Sequelize) {
 		return await queryInterface.bulkInsert("products", products)
