@@ -11,12 +11,12 @@ const OrderItem = sequelize.define("order_items", {
 		allowNull: false
 	},
 	image: {
-	    type: DataTypes.STRING,
-	    allowNull: false
+		type: DataTypes.STRING,
+		allowNull: false
 	},
 	price: {
-	    type: DataTypes.FLOAT,
-	    allowNull: false
+		type: DataTypes.FLOAT,
+		allowNull: false
 	}
 })
 

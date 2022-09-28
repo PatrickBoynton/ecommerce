@@ -1,5 +1,5 @@
 import sequelize from "../../config/sequelize"
-import {DataTypes} from "sequelize"
+import { DataTypes } from "sequelize"
 
 const Product = sequelize.define("products", {
 	name: {

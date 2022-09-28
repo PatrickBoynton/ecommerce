@@ -1,15 +1,15 @@
 import sequelize from "../../config/sequelize"
-import { DataTypes} from "sequelize"
+import { DataTypes } from "sequelize"
 
 const PaymentResult = sequelize.define("payment_result", {
-	 status: {
-	     type: DataTypes.STRING,
-	 },
+	status: {
+		type: DataTypes.STRING
+	},
 	update_time: {
-	    type: DataTypes.STRING,
+		type: DataTypes.STRING
 	},
 	email: {
-	    type: DataTypes.STRING,
+		type: DataTypes.STRING
 	}
 })
 

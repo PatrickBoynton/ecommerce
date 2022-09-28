@@ -10,13 +10,13 @@ const app = express()
 app.use(express.json())
 
 app.get("/:id", (req, res) => {
-    const product = products.find(product => product.id)
+	const product = products.find(product => product.id)
 
-    res.send(product)
+	res.send(product)
 })
 
 app.get("/", (req, res) => {
-    res.send(products)
+	res.send(products)
 })
 
 const port = Math.round(Math.random() * (9000 - 8000) + 8000)
