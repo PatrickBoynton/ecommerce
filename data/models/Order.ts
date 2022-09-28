@@ -1,5 +1,9 @@
 import sequelize from "../../config/sequelize"
 import { DataTypes } from "sequelize"
+import OrderItem from "./OrderItem"
+import PaymentResult from "./PaymentResult"
+import Review from "./Review"
+import ShippingAddress from "./ShippingAddress"
 
 const Order = sequelize.define("orders", {
 	paymentMethod: {
@@ -32,5 +36,9 @@ const Order = sequelize.define("orders", {
 		type: DataTypes.DATE
 	}
 })
+
+Order.hasMany(OrderItem)
+Order.hasOne(PaymentResult)
+Order.hasMany(ShippingAddress)
 
 export default Order

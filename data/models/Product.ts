@@ -1,5 +1,6 @@
 import sequelize from "../../config/sequelize"
 import { DataTypes } from "sequelize"
+import Review from "./Review"
 
 const Product = sequelize.define("products", {
 	name: {
@@ -51,5 +52,7 @@ const Product = sequelize.define("products", {
 		defaultValue: DataTypes.NOW
 	}
 })
+
+Product.hasMany(Review)
 
 export default Product
