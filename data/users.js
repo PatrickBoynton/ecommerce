@@ -7,4 +7,4 @@ const users = [
 	{id: 4, name: "John", email: "jo@jo.com", password:bcrypt.hashSync("safepass1", 10),},
 ]
 
-export default users
+module.exports = users
