@@ -8,15 +8,14 @@ import Review from "../data/models/Review"
 
 export const syncDb = async () => {
 	try {
-		await sequelize.sync({alter: true, logging: console.log})
-		await User.sync({alter: true})
-		await Order.sync({alter: true})
-		await OrderItem.sync({alter: true})
-		await Product.sync({alter: true})
-		await Review.sync({alter: true})
-		await ShippingAddress.sync({alter: true})
+		await sequelize.sync({alter: true, logging: false})
+		await User.sync({alter: true, logging: false})
+		await Order.sync({alter: true, logging: false})
+		await OrderItem.sync({alter: true, logging: false})
+		await Product.sync({alter: true, logging: false})
+		await Review.sync({alter: true, logging: false})
+		await ShippingAddress.sync({alter: true, logging: false})
 
-		console.log("Sync finished.")
 	} catch (e: any) {
 		console.error(e.message)
 	}
