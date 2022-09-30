@@ -1,7 +1,9 @@
-import express  from "express"
+import express from "express"
 import dotenv from "dotenv"
 import { syncDb } from "./config/syncDb"
 import productRoutes from "./routes/productRoutes"
+import notFound from "./middleware/notFound"
+import statusMessage from "./middleware/statusMessage"
 
 dotenv.config({path: "./config/.env"})
 
@@ -9,10 +11,14 @@ const app = express()
 
 app.use(express.json())
 
-app.get("/api/products", productRoutes)
+app.use("/api/products", productRoutes)
+
+app.use(notFound)
+
+app.use(statusMessage)
 
 const port = process.env.PORT
 
 syncDb()
 
-app.listen(port, () => console.log(`Now listening on port http://localhost:${port}`))
+app.listen(port, () => console.log(`Now listening on port ${port}`))
