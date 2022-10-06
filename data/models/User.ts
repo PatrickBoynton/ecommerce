@@ -2,6 +2,7 @@ import sequelize from "../../config/sequelize"
 import { DataTypes } from "sequelize"
 import Order from "./Order"
 import Product from "./Product"
+import bcrypt from "bcryptjs"
 
 const User = sequelize.define("users", {
 	name: {
@@ -11,7 +12,7 @@ const User = sequelize.define("users", {
 	email: {
 		type: DataTypes.STRING,
 		allowNull: false,
-		unique: true
+		unique: "email",
 	},
 	password: {
 		type: DataTypes.STRING,
@@ -30,6 +31,10 @@ const User = sequelize.define("users", {
 		defaultValue: DataTypes.NOW
 	},
 })
+
+User.prototype.comparePassword = async function (password: string | null) {
+	if(password !== null) return await bcrypt.compare(password, this.password)
+}
 
 User.hasMany(Order)
 User.hasMany(Product)
