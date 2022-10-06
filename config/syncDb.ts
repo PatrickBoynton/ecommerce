@@ -5,6 +5,8 @@ import Order from "../data/models/Order"
 import OrderItem from "../data/models/OrderItem"
 import ShippingAddress from "../data/models/ShippingAddress"
 import Review from "../data/models/Review"
+// import users from "../data/users"
+// import products from "../data/products"
 
 export const syncDb = async () => {
 	try {
@@ -16,7 +18,11 @@ export const syncDb = async () => {
 		await Review.sync({alter: true, logging: false})
 		await ShippingAddress.sync({alter: true, logging: false})
 
+		// await User.bulkCreate(users)
+		// await Product.bulkCreate(products)
+
 	} catch (e: any) {
+		console.log("ERROR \n---------------------------------")
 		console.error(e.message)
 	}
 }

@@ -4,4 +4,4 @@ const products = [
 	{id: 3, "name": "Color Pencils", image: "An Image URL", description: "My fellow Earthicans, as I have explained in my book 'Earth in the Balance'', and the much more popular ''Harry Potter and the Balance of Earth', we need to defend our planet against pollution. Also dark wizards.", brand: "Artsy Co", category: "Art and Education", price: 10.99, countInStock: 2, rating: 4}
 ]
 
-module.exports = products
+export default products
