@@ -1,10 +1,10 @@
 import { Router } from "express"
-import { authenticateUser } from "../controllers/userController"
-import statusMessage from "../middleware/statusMessage"
-import notFound from "../middleware/notFound"
+import { authenticateUser, getUserProfile } from "../controllers/userController"
+import protect from "../middleware/authMiddleware"
 
 const router = Router()
 
-router.post("/login", [statusMessage], authenticateUser)
+router.post("/login", authenticateUser)
+router.get("/profile", [protect] , getUserProfile)
 
 export default  router
