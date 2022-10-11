@@ -14,10 +14,9 @@ const Header = () => {
                       aria-label="menu"
                       sx={{ mr: 2 }}
                     >
-                        {/*<MenuIcon />*/}
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Ecom
+                        Gametronics
                     </Typography>
                     <Button color="inherit"><FontAwesomeIcon icon={faShoppingCart} style={{padding: '20px'}} />Cart</Button>
                     <Button color="inherit"> <FontAwesomeIcon icon={faUser} style={{padding: '20px'}}/> Login</Button>
