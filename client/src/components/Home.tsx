@@ -1,6 +1,6 @@
 import products from "../products"
 import { Grid, Typography } from "@mui/material"
-import Product from "./Product"
+import ProductCard from "./ProductCard"
 
 const Home = () => {
     return <>
@@ -8,7 +8,7 @@ const Home = () => {
 			<Grid container spacing={2}>
 				{products.map(product => {
 					return <Grid  xs={4} key={product.id} item>
-						<Product product={product} />
+						<ProductCard product={product} />
 					</Grid>
 				})}
 			</Grid>
