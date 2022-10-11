@@ -11,7 +11,6 @@ const App = () => {
       <Header/>
       <main style={{padding: '20px 0'}}>
         <Container>
-          <h1>Welcome to the Store!</h1>
           <Home/>
         </Container>
       </main>
