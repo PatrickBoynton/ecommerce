@@ -6,11 +6,9 @@ const Home = () => {
     return <>
 			<Typography variant='h2'>Featured Products</Typography>
 			<Grid container spacing={2}>
-				{products.map(product => {
-					return <Grid  xs={4} key={product.id} item>
+				{products.map(product => <Grid  xs={4} key={product.id} item>
 						<ProductCard product={product} />
-					</Grid>
-				})}
+					</Grid>)}
 			</Grid>
     </>
 }
