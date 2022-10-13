@@ -43,7 +43,38 @@ export const getUserProfile = async (req: GetUserAuthInfoRequest, res: Response)
 			})
 		} else {
 			res.status(404)
-			throw new Error("User not found.")
+			throw new Error("IUser not found.")
+		}
+	} catch(e: any) {
+		console.error(e.message)
+		return res.status(500).send("Server Error.")
+	}
+}
+
+export const createUser = async (req: Request, res: Response) => {
+	const { name, email, password } = req.body
+	const userExists = await User.findOne({where: { email} })
+
+	try {
+		if (userExists) {
+			res.status(400).send("IUser already exists.")
+		}
+
+		const user: any = await User.create({
+			name,
+			email,
+			password
+		})
+		
+		if(user) {
+			res.status(200).send({
+				id: user.id,
+				name: user.name,
+				isAdmin: user.isAdmin,
+				token: generateToken(user.id)
+			})
+		} else {
+			res.status(400).send("Invalid user data.")
 		}
 	} catch(e: any) {
 		console.error(e.message)

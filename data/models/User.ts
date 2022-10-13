@@ -30,6 +30,23 @@ const User = sequelize.define("users", {
 		type: DataTypes.DATE,
 		defaultValue: DataTypes.NOW
 	},
+}, {
+	hooks: {
+		beforeCreate: async (user: any) => {
+			if (user.password) {
+				const salt = await bcrypt.genSalt(10)
+				user.password = bcrypt.hashSync(user.password, salt)
+			}
+		},
+		beforeUpdate:async (user: any) => {
+			if (user.password) {
+				const salt = await bcrypt.genSalt(10)
+				user.password = bcrypt.hashSync(user.password, salt)
+			} else{
+				return
+			}
+		}
+	}
 })
 
 User.prototype.comparePassword = async function (password: string | null) {
