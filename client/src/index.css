@@ -51,18 +51,18 @@ div > .MuiCard-root {
     height: 15%;
 }
 
-.MuiCard-root [data-icon="arrow-right"] {
+ [data-icon="arrow-right"] {
     position: absolute;
     height: 100px;
-    bottom: 250px;
-    left: 845px;
+    bottom: 130px;
+    left: 340px;
     color: red;
     cursor: pointer;
 }
 
-.MuiCard-root [data-icon="arrow-left"] {
+ [data-icon="arrow-left"] {
     position: absolute;
-    bottom: 250px;
+    bottom: 130px;
     left:75px;
     z-index: 1;
     height: 100px;
