@@ -15,10 +15,9 @@ interface Props {
 
 const ProductCard = ({product}: Props) => {
     return <>
-        <Card sx={{ borderRadius: "6px", height: "100%", border: "2px solid black", backgroundColor: "#242424" }}>
+        <Card>
             <Link to={`product/${product.id}`}>
                 <CardHeader
-                  sx={{backgroundColor: "red", color: "white", height: "20%"}}
                   title={product.name}
                   subheader={`$${product.price}`}
                 />
@@ -30,7 +29,6 @@ const ProductCard = ({product}: Props) => {
                 />
                 <CardContent>
                     <Rating
-                      sx={{color: "red"}}
                       name="simple-controlled"
                       precision={0.5}
                       value={product.rating}
@@ -41,10 +39,10 @@ const ProductCard = ({product}: Props) => {
                           // setValue(newValue)
                       }}
                     />
-                    <Typography sx={{color: "white"}}>
+                    <Typography className="white-p">
                         ({product.numReviews})
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{color: "white"}}>
+                    <Typography className="white-p" variant="body2">
                         {product.description}
                     </Typography>
                 </CardContent>
