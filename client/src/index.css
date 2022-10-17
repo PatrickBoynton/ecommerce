@@ -1,7 +1,76 @@
 * {
   margin: 0;
-  padding: 0;
+  padding: 0
 }
+
+header{
+  background-color: red!important;
+}
+
 main {
   min-height: 80vh;
+}
+
+a {
+ color: white;
+  text-decoration: none;
+}
+
+div >.MuiCardHeader-subheader{
+    color: white;
+ }
+
+button > svg {
+    padding: 20px;
+}
+
+.MuiRating-icon {
+    color: red;
+}
+
+.MuiRating-iconEmpty  > svg {
+    color: red;
+}
+
+button {
+    color: red;
+    border: 2px solid red;
+}
+
+div > .MuiCard-root {
+    background-color: #242424;
+    text-decoration: none;
+    border: 2px solid black;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.MuiCardHeader-root {
+    background-color: red;
+    color: white;
+    height: 15%;
+}
+
+.MuiCard-root [data-icon="arrow-right"] {
+    position: absolute;
+    height: 100px;
+    bottom: 250px;
+    left: 845px;
+    color: red;
+    cursor: pointer;
+}
+
+.MuiCard-root [data-icon="arrow-left"] {
+    position: absolute;
+    bottom: 250px;
+    left:75px;
+    z-index: 1;
+    height: 100px;
+    color: red;
+    cursor: pointer;
+}
+.slider {
+    position: relative;
+    left: 100px;
+    display: flex;
 }
