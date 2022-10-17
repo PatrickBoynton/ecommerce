@@ -1,12 +1,12 @@
-import { useStore } from "../store/store"
+import { useStoreProducts } from "../store/store-products"
 import { useEffect, useState } from "react"
-import { Card, CardMedia, Typography } from "@mui/material"
+import { CardMedia, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import Product from "../models/Product"
 
 const ImageCarousel = () => {
-	const { products, getProducts } = useStore()
+	const { products, getProducts } = useStoreProducts()
 	const [current, setCurrent] = useState(0)
 
 	  useEffect(() => {
@@ -21,9 +21,8 @@ const ImageCarousel = () => {
 		if(current !== undefined) setCurrent(current === 0 ? products.length - 1 : current - 1)
 	}
 
-    return <>
+    return <div style={{borderBottom: "4px solid red"}}>
 			<Typography variant='h1'>Related Products</Typography>
-			<Card>
 						<FontAwesomeIcon icon={faArrowLeft} onClick={previousSlide}/>
 						{products.map((product: Product, index: number) => {
 							return <div className="slider">
@@ -36,8 +35,7 @@ const ImageCarousel = () => {
 							</div>
 						})}
 						<FontAwesomeIcon icon={faArrowRight} onClick={nextSlide} />
-			</Card>
-    </>
+    </div>
 }
 
 export default ImageCarousel
