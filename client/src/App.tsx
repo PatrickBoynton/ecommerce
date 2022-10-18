@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import Home from "./components/Home"
+import Header from "./components/pages/Header"
+import Footer from "./components/pages/Footer"
+import Home from "./components/pages/Home"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import SingleProduct from "./components/SingleProduct"
+import SingleProduct from "./components/productDetails/SingleProduct"
 
 const App = () => {
   return (
