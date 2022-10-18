@@ -1,8 +1,8 @@
 import { Container, Grid, Typography } from "@mui/material"
-import ProductCard from "./ProductCard"
-import { useStoreProducts } from "../store/store-products"
+import ProductCard from "../ProductCard"
+import { useStoreProducts } from "../../store/store-products"
 import { useEffect } from "react"
-import Product from "../models/Product"
+import Product from "../../models/Product"
 
 const Home = () => {
 	const { products, getProducts } = useStoreProducts()
