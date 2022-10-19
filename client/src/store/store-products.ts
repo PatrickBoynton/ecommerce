@@ -30,10 +30,4 @@ export const useStoreProducts = create<ProductsState>((set) => ({
 				product: products.find(p => String(p.id) === id) as Product
 		}))
 	},
-
-	setQuantityLeft: (product: Product) => {
-		set(set => ({
-			quantityLeft: Array.from(new Array(product?.countInStock), (x: number, i: number) => i + 1)
-		}))
-	}
 }))
