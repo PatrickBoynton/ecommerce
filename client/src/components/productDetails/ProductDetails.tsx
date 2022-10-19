@@ -1,14 +1,14 @@
 import { Button, Grid, Rating, Typography } from "@mui/material"
-import Product from "../models/Product"
+import { useNavigate } from "react-router-dom"
+import { useStoreProducts } from "../../store/store-products"
 
-interface Props {
-    product: Product
-}
 
-const ProductDetails = ({product}: Props) => {
+const ProductDetails = () => {
+    const navigate = useNavigate()
+    const { product } = useStoreProducts()
     return <>
         <Grid item xs={3}>
-            <Button>Go Back</Button>
+            <Button onClick={() => navigate(-1)}>Go Back</Button>
             <img src={product?.image} alt="Product" style={{width: "100%"}}/>
         </Grid>
         <Grid item xs={5}>
