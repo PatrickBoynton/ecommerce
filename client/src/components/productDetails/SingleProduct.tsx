@@ -22,7 +22,7 @@ const SingleProduct = () => {
             <ProductDetails />
             <AddToCart />
         </Grid>
-            <ImageCarousel />
+            {/*<ImageCarousel />*/}
         <Grid container>
             <Grid item xs={6} sx={{borderRight}}>
                 <Reviews />
