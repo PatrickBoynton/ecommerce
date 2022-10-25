@@ -2,33 +2,32 @@ import { Box, FormControl, InputLabel, ListItem, MenuItem, Select, Typography } 
 import Product from "../models/Product"
 
 interface Props {
-	products: Product[]
+	products: Product
+	qty: number
 }
 
 
-const CartItem = ({products}: Props) => {
+const CartItem = ({products, qty}: Props) => {
+	const quantityLeft = Array.from(new Array(products?.countInStock), (x: number, i: number) => i + 1)
+
 	return <ListItem sx={{ width: "60%", borderBottom: "2px solid red", borderRight: "2px solid red" }}>
-		<Box component="img" src={products[0].image} alt="Product" sx={{ width: "20%" }} />
-		<Typography variant="h5">{products[0].name}</Typography>
+		<Box component="img" src={products.image} alt="Product" sx={{ width: "20%" }} />
+		<Typography variant="h5">{products.name}</Typography>
 
 		<FormControl sx={{ width: "20%", marginRight: "40px" }}>
-			<InputLabel id="demo-simple-select-label">Qty</InputLabel>
+			<InputLabel id="qty-label">Qty</InputLabel>
 			<Select
-				// sx={{width: "10%"}}
-				labelId="demo-simple-select-label"
-				id="demo-simple-select"
-				value={5}
-				label="Age"
+				labelId="qty-label"
+				id="qt-label"
+				value={qty}
+				label="Qty"
 				// onChange={handleChange}
 			>
-				<MenuItem value={10}>Ten</MenuItem>
-				<MenuItem value={20}>Twenty</MenuItem>
-				<MenuItem value={30}>Thirty</MenuItem>
+				{quantityLeft.map((item, index) => <MenuItem value={item} key={item}>{item}</MenuItem>)}
 			</Select>
 		</FormControl>
 		<Typography variant="h5">Price: </Typography>
-		{/*<ListItemText primary={"$" + products[0].price}/>*/}
-		<Typography variant="h6">${products[0].price}</Typography>
+		<Typography variant="h6">${products.price}</Typography>
 	</ListItem>
 }
 
