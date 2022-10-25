@@ -11,11 +11,9 @@ interface ProductsState {
 	setProduct: (id: string) => void
 }
 
-const defaultProduct: Partial<Product> = { rating: 0}
-
 export const useStoreProducts = create<ProductsState>((set) => ({
 	products: [],
-	product: defaultProduct,
+	product: {},
 	quantityLeft: [],
 
 	getProducts: async () => {
