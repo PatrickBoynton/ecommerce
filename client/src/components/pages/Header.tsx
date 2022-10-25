@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router-dom"
 
 const Header = () => {
-    return  <Box sx={{ flexGrow: 1 }}>
+    return  <>
         <AppBar position="static">
                 <Toolbar>
                     <Link to="/">
@@ -22,7 +22,7 @@ const Header = () => {
                     </Container>
                 </Toolbar>
         </AppBar>
-    </Box>
+    </>
 }
 
 export default Header
