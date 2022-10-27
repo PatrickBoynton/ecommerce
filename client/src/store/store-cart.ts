@@ -3,27 +3,38 @@ import Product from "../models/Product"
 
 interface StoreCartState {
 	cartItems: Partial<Product[]>
-	qty: number
-	setCartItems: (item: Product, qty: number, cartItems: Partial<Product[]>) => void,
+	setCartItems: (item: Product, cart: Partial<Product[]>) => void,
 	getCartItems: () => void
+	setQty: (item: Partial<Product>, qty: string) => void
 }
 
 
 export const useStoreCart = create<StoreCartState>((set) => ({
 	cartItems: [],
-	qty: 1,
-	setCartItems: (item: Product, qty: number, cartItems: Partial<Product[]>) => {
-
-		if(item !== undefined && cartItems.indexOf(item) === -1) {
-
+	setCartItems: (item: Product, cart: Partial<Product[]>) => {
+		if(item !== undefined) {
 			set((state) => ({
-				cartItems: [item, ...state.cartItems],
-				qty,
+				cartItems: [...state.cartItems, item],
 			}))
 		}
-		localStorage.setItem("cart", JSON.stringify(cartItems))
+			localStorage.setItem("cart", JSON.stringify(cart))
 	},
 	getCartItems: () => {
-		localStorage.getItem("cart")
+		const cart = JSON.parse(localStorage.getItem("cart") as string)
+		if(cart) {
+			set((state) => ({
+				cartItems: [...cart]
+			}))
+		}
+			// if (cart.length > 0) {
+			// 	set((state) => ({
+			// 		cartItems: [...cart]
+			// 	}))
+			// } else {
+			// 	console.log("TEST")
+			// }
+	},
+	setQty: (item: Partial<Product>, qty: string) => {
+		item['qty'] = qty
 	}
 }))
