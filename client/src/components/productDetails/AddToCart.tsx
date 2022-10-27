@@ -10,15 +10,15 @@ const AddToCart = () => {
 	const navigate = useNavigate()
 	const params = useParams()
 	const { product, setProduct } = useStoreProducts()
-	const { cartItems, setCartItems } = useStoreCart()
-
-	const [qty, setQty] = useState("1")
+	const { cartItems, setCartItems, setQty } = useStoreCart()
+	const [ value, setValue ] = useState<string>()
 
 
 	const addToCartHandler = () => {
-		navigate(`/cart/${params.id}?qty=${qty}`)
-		setCartItems(product as Product, Number(qty), cartItems)
-		localStorage.setItem("cart", JSON.stringify(cartItems))
+
+		setCartItems(product as Product, cartItems)
+		navigate(`/cart/${params.id}`)
+		useStoreCart.subscribe(console.log)
 	}
 
 	useEffect(() => {
@@ -29,14 +29,17 @@ const AddToCart = () => {
 
     return <>
 			<Grid item xs={4} sx={rightPanel}>
-				<Typography variant="h3">${product?.price}</Typography>
+				<Typography variant="h3">${product?.price}</Typography>=
 				<Typography variant="h3">{product?.countInStock! > 0 ? 'In Stock' : 'Out of Stock'} {product?.countInStock} left </Typography>
 				<Button sx={cartButton} onClick={addToCartHandler} disabled={product?.countInStock! < 1}>Add To Cart</Button>
-				{product?.countInStock! > 0 && (<Select onChange={(e: any) => setQty(e.target.value)} defaultValue={1}  sx={{backgroundColor: "black", color: "red", border: "4px solid red"}}>
+				{product.countInStock as number > 0 && (<Select onChange={(e: any) => setQty(product, e.target.value)}
+																								defaultValue={String(1)}
+																								value={value}
+																								sx={{backgroundColor: "black",
+																									   color: "red",
+																									   border: "4px solid red"}}>
 					{
-						quantityLeft.map((x: number) => <MenuItem value={x}
-																											key={x}
-						>{x}</MenuItem>)
+						quantityLeft.map((x: number) => <MenuItem value={x} key={x}>{x}</MenuItem>)
 					}
 				</Select>)}
 			</Grid>

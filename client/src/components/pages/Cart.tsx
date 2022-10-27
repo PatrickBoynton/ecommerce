@@ -3,46 +3,44 @@ import {
     List,
     Typography
 } from "@mui/material"
-import { useParams, useSearchParams } from "react-router-dom"
-import { useStoreProducts } from "../../store/store-products"
 import { useEffect, useState } from "react"
 import { useStoreCart } from "../../store/store-cart"
 import Product from "../../models/Product"
 import { borderRight } from "../../styles/objectStyles"
 import CartItem from "../CartItem"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const Cart = () => {
-    const params = useParams()
-    const { products } = useStoreProducts()
-    const { setCartItems, cartItems, getCartItems } = useStoreCart()
-    const [searchParams] = useSearchParams()
-    // const [totalPrice, setTotalPrice] = useState()
+    const { cartItems, getCartItems } = useStoreCart()
+    const [totalPrice, setTotalPrice] = useState(0)
 
-    const productId = params.id
-
-    const product = products.find(item => item.id === Number(productId)) as Product
-    const testPrice = product?.price
-
-    const qty = Number(searchParams.get("qty"))
+    const cartTotal = Number(cartItems?.map(x => x?.price)
+      .reduce((previousValue, currentValue) => (Number(currentValue) + Number(previousValue)), 0))
 
     useEffect(() => {
         getCartItems()
     }, [getCartItems])
 
+    useEffect(() => {
+        setTotalPrice(cartTotal)
+    },[ setTotalPrice, cartTotal, cartItems])
+
+    const handleDeleteAllItems = () => {
+        localStorage.removeItem("cart")
+    }
     return <Grid container>
         <Grid item xs={8} sx={borderRight}>
             <Typography variant="h2">Shopping Cart</Typography>
+            <Typography variant="h4" sx={{cursor: "pointer", color: "red"}} onClick={handleDeleteAllItems}>Delete All</Typography>
             {cartItems ? <List>
                 {cartItems && cartItems.map((item, index) =>
-                  <CartItem key={index}
-                            products={item as Product}
-                            qty={qty} />)
+                  <CartItem key={index} products={item as Product}/>)
                   .filter((x, i, a) => a.indexOf(x) === i)}
             </List> : <Typography variant="h3">No items in your cart. </Typography>}
         </Grid>
         <Grid item xs={4}>
             <Typography variant="h2">Subtotal: </Typography>
-            <Typography variant="h3">{testPrice !== undefined ? "$" + Math.floor(testPrice * qty).toFixed(2) : "$0.00"}</Typography>
+            <Typography variant="h3">{totalPrice !== undefined ? "$" + totalPrice.toFixed(2)  : "$0.00"}</Typography>
         </Grid>
     </Grid>
 }

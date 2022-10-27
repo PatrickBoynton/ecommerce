@@ -3,12 +3,11 @@ import Product from "../models/Product"
 
 interface Props {
 	products: Product
-	qty: number
 }
 
 
-const CartItem = ({products, qty}: Props) => {
-	const quantityLeft = Array.from(new Array(products?.countInStock), (x: number, i: number) => i + 1)
+const CartItem = ({products}: Props) => {
+	const quantityLeft = Array.from(new Array(products?.countInStock), (x: number, i: number) => (i + 1))
 
 	return <ListItem sx={{ width: "60%", borderBottom: "2px solid red", borderRight: "2px solid red" }}>
 		<Box component="img" src={products.image} alt="Product" sx={{ width: "20%" }} />
@@ -19,11 +18,12 @@ const CartItem = ({products, qty}: Props) => {
 			<Select
 				labelId="qty-label"
 				id="qt-label"
-				value={qty}
+				defaultValue={products.qty}
+				value={products.qty}
 				label="Qty"
 				// onChange={handleChange}
 			>
-				{quantityLeft.map((item, index) => <MenuItem value={item} key={item}>{item}</MenuItem>)}
+				{quantityLeft.map((item, index) => <MenuItem defaultValue={1} value={item} key={item}>{item}</MenuItem>)}
 			</Select>
 		</FormControl>
 		<Typography variant="h5">Price: </Typography>
