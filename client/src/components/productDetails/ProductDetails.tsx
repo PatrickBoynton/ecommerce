@@ -1,11 +1,14 @@
 import { Button, Grid, Rating, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { useStoreProducts } from "../../store/store-products"
+import { useState } from "react"
 
 
 const ProductDetails = () => {
     const navigate = useNavigate()
     const { product } = useStoreProducts()
+    const [value, setValue] = useState<number | null>(2)
+
     return <>
         <Grid item xs={3}>
             <Button onClick={() => navigate(-1)}>Go Back</Button>
@@ -15,7 +18,10 @@ const ProductDetails = () => {
             <Typography variant="h1">{product?.name}</Typography>
             <Typography>Brand {product?.brand}</Typography>
             <Typography>
-                <Rating value={product?.rating}/>
+                <Rating value={product?.rating}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}/>
                 ({product?.numReviews})
             </Typography>
             <Typography variant="h5">About the product: </Typography>
