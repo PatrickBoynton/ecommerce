@@ -1,6 +1,6 @@
 import { Button, Grid, Rating, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { useStoreProducts } from "../../store/store-products"
+import { useStoreProducts } from "../../../store/store-products"
 import { useState } from "react"
 
 
@@ -19,6 +19,7 @@ const ProductDetails = () => {
             <Typography>Brand {product?.brand}</Typography>
             <Typography>
                 <Rating value={product?.rating}
+                        defaultValue={product?.rating}
                         onChange={(event, newValue) => {
                             setValue(newValue);
                         }}/>

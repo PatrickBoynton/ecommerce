@@ -1,9 +1,9 @@
-import { useStoreProducts } from "../../store/store-products"
+import { useStoreProducts } from "../../../store/store-products"
 import { useEffect, useState } from "react"
 import { CardMedia, Typography } from "@mui/material"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons"
-import Product from "../../models/Product"
+import Product from "../../../models/Product"
 
 const ImageCarousel = () => {
 	const { products, getProducts } = useStoreProducts()

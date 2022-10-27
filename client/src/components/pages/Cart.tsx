@@ -8,7 +8,6 @@ import { useStoreCart } from "../../store/store-cart"
 import Product from "../../models/Product"
 import { borderRight } from "../../styles/objectStyles"
 import CartItem from "../CartItem"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const Cart = () => {
     const { cartItems, getCartItems } = useStoreCart()
@@ -31,11 +30,11 @@ const Cart = () => {
     return <Grid container>
         <Grid item xs={8} sx={borderRight}>
             <Typography variant="h2">Shopping Cart</Typography>
-            <Typography variant="h4" sx={{cursor: "pointer", color: "red"}} onClick={handleDeleteAllItems}>Delete All</Typography>
+            {cartItems.length > 0 && <Typography variant="h4" sx={{ cursor: "pointer", color: "red" }} onClick={handleDeleteAllItems}>Delete
+                All</Typography>}
             {cartItems ? <List>
                 {cartItems && cartItems.map((item, index) =>
-                  <CartItem key={index} products={item as Product}/>)
-                  .filter((x, i, a) => a.indexOf(x) === i)}
+                  <CartItem key={item?.id} products={item as Product}/>)}
             </List> : <Typography variant="h3">No items in your cart. </Typography>}
         </Grid>
         <Grid item xs={4}>
