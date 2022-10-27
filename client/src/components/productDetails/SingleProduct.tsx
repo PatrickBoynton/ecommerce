@@ -3,10 +3,10 @@ import { Grid } from "@mui/material"
 import { borderRight, detailsGlobal } from "../../styles/objectStyles"
 import { useEffect } from "react"
 import { useStoreProducts } from "../../store/store-products"
-import ProductDetails from "./ProductDetails"
-import AddToCart from "./AddToCart"
-import ImageCarousel from "./ImageCarousel"
-import Reviews from "./Reviews"
+import ProductDetails from "./singleProduct/ProductDetails"
+import AddToCart from "./singleProduct/AddToCart"
+import ImageCarousel from "./singleProduct/ImageCarousel"
+import Reviews from "./singleProduct/Reviews"
 
 const SingleProduct = () => {
     const params = useParams()
