@@ -4,10 +4,10 @@ import {
     Typography
 } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useStoreCart } from "../../store/store-cart"
-import Product from "../../models/Product"
-import { borderRight } from "../../styles/objectStyles"
-import CartItem from "../CartItem"
+import { useStoreCart } from "../../../store/store-cart"
+import Product from "../../../models/Product"
+import { borderRight } from "../../../styles/objectStyles"
+import CartItem from "./CartItem"
 
 const Cart = () => {
     const { cartItems, getCartItems } = useStoreCart()

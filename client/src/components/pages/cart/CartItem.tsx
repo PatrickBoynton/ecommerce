@@ -1,5 +1,5 @@
 import { Box, FormControl, InputLabel, ListItem, MenuItem, Select, Typography } from "@mui/material"
-import Product from "../models/Product"
+import Product from "../../../models/Product"
 
 interface Props {
 	products: Product

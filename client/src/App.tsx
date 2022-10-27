@@ -5,7 +5,7 @@ import Footer from "./components/pages/Footer"
 import Home from "./components/pages/Home"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import SingleProduct from "./components/productDetails/SingleProduct"
-import Cart from "./components/pages/Cart"
+import Cart from "./components/pages/cart/Cart"
 import Login from "./components/pages/Login"
 
 const App = () => {
