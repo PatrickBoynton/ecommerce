@@ -9,6 +9,7 @@ interface Product {
 	countInStock: number
 	rating: number
 	numReviews: number
+	qty?: string
 }
 
 export default Product
