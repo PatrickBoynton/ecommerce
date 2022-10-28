@@ -17,7 +17,7 @@ const Cart = () => {
       .reduce((previousValue, currentValue) => (Number(currentValue) + Number(previousValue)), 0))
 
     useEffect(() => {
-        getCartItems()
+        getCartItems(cartItems)
     }, [getCartItems])
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const Cart = () => {
     return <Grid container>
         <Grid item xs={8} sx={borderRight}>
             <Typography variant="h2">Shopping Cart</Typography>
-            {cartItems.length > 0 && <Typography variant="h4" sx={{ cursor: "pointer", color: "red" }} onClick={handleDeleteAllItems}>Delete
+            {cartItems.length > 0 && cartItems && <Typography variant="h4" sx={{ cursor: "pointer", color: "red" }} onClick={handleDeleteAllItems}>Delete
                 All</Typography>}
             {cartItems ? <List>
                 {cartItems && cartItems.map((item, index) =>
@@ -39,7 +39,7 @@ const Cart = () => {
         </Grid>
         <Grid item xs={4}>
             <Typography variant="h2">Subtotal: </Typography>
-            <Typography variant="h3">{totalPrice !== undefined ? "$" + totalPrice.toFixed(2)  : "$0.00"}</Typography>
+            <Typography variant="h3">{totalPrice !== undefined  && totalPrice ? "$" + totalPrice.toFixed(2)  : "$0.00"}</Typography>
         </Grid>
     </Grid>
 }

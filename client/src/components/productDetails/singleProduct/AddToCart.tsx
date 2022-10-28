@@ -10,15 +10,14 @@ const AddToCart = () => {
 	const navigate = useNavigate()
 	const params = useParams()
 	const { product, setProduct } = useStoreProducts()
-	const { cartItems, setCartItems, setQty } = useStoreCart()
+	const { setCartItems, setQty } = useStoreCart()
 	const [ value, setValue ] = useState<string>()
 
 
 	const addToCartHandler = () => {
-
-		setCartItems(product as Product, cartItems)
-		navigate(`/cart/${params.id}`)
-		useStoreCart.subscribe(console.log)
+		setCartItems(product as Product)
+		if(product) navigate(`/cart/${params.id}`)
+		// useStoreCart.subscribe(console.log)
 	}
 
 	useEffect(() => {
