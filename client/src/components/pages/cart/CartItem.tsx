@@ -2,24 +2,24 @@ import { Box, FormControl, InputLabel, ListItem, MenuItem, Select, Typography } 
 import Product from "../../../models/Product"
 
 interface Props {
-	products: Product
+	product: Product
 }
 
 
-const CartItem = ({products}: Props) => {
-	const quantityLeft = Array.from(new Array(products?.countInStock), (x: number, i: number) => (i + 1))
+const CartItem = ({product}: Props) => {
+	const quantityLeft = Array.from(new Array(product?.countInStock), (x: number, i: number) => (i + 1))
 
 	return <ListItem sx={{ width: "60%", borderBottom: "2px solid red", borderRight: "2px solid red" }}>
-		<Box component="img" src={products.image} alt="Product" sx={{ width: "20%" }} />
-		<Typography variant="h5">{products.name}</Typography>
+		<Box component="img" src={product.image} alt="Product" sx={{ width: "20%" }} />
+		<Typography variant="h5">{product.name}</Typography>
 
 		<FormControl sx={{ width: "20%", marginRight: "40px" }}>
 			<InputLabel id="qty-label">Qty</InputLabel>
 			<Select
 				labelId="qty-label"
 				id="qt-label"
-				defaultValue={products.qty}
-				value={products.qty}
+				defaultValue={product.qty || "1"}
+				value={product.qty || "1"}
 				label="Qty"
 				// onChange={handleChange}
 			>
@@ -27,7 +27,7 @@ const CartItem = ({products}: Props) => {
 			</Select>
 		</FormControl>
 		<Typography variant="h5">Price: </Typography>
-		<Typography variant="h6">${products.price}</Typography>
+		<Typography variant="h6">${product.price * Number((product?.qty || 1))}</Typography>
 	</ListItem>
 }
 

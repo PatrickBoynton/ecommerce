@@ -3,11 +3,12 @@ import Product from "../models/Product"
 
 interface StoreCartState {
 	cartItems: Partial<Product[]>
-	cartStorage: any[]
+	cartTotal: number
 	qty: number[]
 	setCartItems: (item: Product) => void,
 	getCartItems: (cart: Partial<Product[]>) => void
 	setQty: (item: Partial<Product>, qty: string) => void
+	setCartTotal: (total: number) => void
 }
 
 
@@ -15,6 +16,7 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	cartItems: [],
 	qty: [],
 	cartStorage: [],
+	cartTotal: 0,
 	setCartItems: (item: Product) => {
 		if(item) {
 			set((state) => ({
@@ -22,14 +24,22 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 			}))
 		}
 	},
+
 	getCartItems: (cart: Partial<Product[]>) => {
-		localStorage.setItem("cart", JSON.stringify(cart))
+		if(cart.length > 0) localStorage.setItem("cart", JSON.stringify(cart))
 	},
+
 	setQty: (item: Partial<Product>, qty: string) => {
-		if(qty !== undefined) {
+		if (qty !== undefined && qty) {
 			item["qty"] = qty
 		} else {
 			item["qty"] = "1"
 		}
+	},
+
+	setCartTotal: (total: number) => {
+		set((state) => ({
+			cartTotal: total
+		}))
 	}
 }))
