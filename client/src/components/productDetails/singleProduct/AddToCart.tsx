@@ -1,4 +1,4 @@
-import { cartButton, rightPanel } from "../../../styles/objectStyles"
+import { cartButton, rightPanel, selectStyling } from "../../../styles/objectStyles"
 import { Button, Grid, MenuItem, Select, Typography } from "@mui/material"
 import { useNavigate, useParams } from "react-router-dom"
 import { useStoreProducts } from "../../../store/store-products"
@@ -28,15 +28,13 @@ const AddToCart = () => {
 
     return <>
 			<Grid item xs={4} sx={rightPanel}>
-				<Typography variant="h3">${product?.price}</Typography>=
+				<Typography variant="h3">${product?.price}</Typography>
 				<Typography variant="h3">{product?.countInStock! > 0 ? 'In Stock' : 'Out of Stock'} {product?.countInStock} left </Typography>
 				<Button sx={cartButton} onClick={addToCartHandler} disabled={product?.countInStock! < 1}>Add To Cart</Button>
 				{product.countInStock as number > 0 && (<Select onChange={(e: any) => setQty(product, e.target.value)}
 																								defaultValue={"1"}
 																								value={value}
-																								sx={{backgroundColor: "black",
-																									   color: "red",
-																									   border: "4px solid red"}}>
+																								sx={selectStyling}>
 					{
 						quantityLeft.map((x: number) => <MenuItem value={x} key={x}>{x}</MenuItem>)
 					}

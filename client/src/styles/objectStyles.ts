@@ -1,10 +1,13 @@
 const border = "4px solid red"
 const smallBorder = "2px solid red"
+const mainColor = "red"
+const secondaryColor = "white"
+const darkColor = "black"
 
 export const rightPanel = {
 	backgroundColor: "#242424",
 	borderLeft: border,
-	color: "white"
+	color: secondaryColor
 }
 
 export const detailsGlobal = {
@@ -13,7 +16,7 @@ export const detailsGlobal = {
 
 export const cartButton = {
 	border,
-	color: "white"
+	color: secondaryColor
 }
 
 export const borderRight = {
@@ -38,5 +41,11 @@ export const FormControlStyles = {
 
 export const deleteItemsStyles = {
 	cursor: "pointer",
-	color: "red"
+	color: mainColor
+}
+
+export const selectStyling = {
+	backgroundColor: darkColor,
+	color: mainColor,
+	border
 }
