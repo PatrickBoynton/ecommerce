@@ -1,5 +1,6 @@
 import { Box, FormControl, InputLabel, ListItem, MenuItem, Select, Typography } from "@mui/material"
 import Product from "../../../models/Product"
+import { BoxStyle, CartItemList, FormControlStyles } from "../../../styles/objectStyles"
 
 interface Props {
 	product: Product
@@ -9,11 +10,11 @@ interface Props {
 const CartItem = ({product}: Props) => {
 	const quantityLeft = Array.from(new Array(product?.countInStock), (x: number, i: number) => (i + 1))
 
-	return <ListItem sx={{ width: "60%", borderBottom: "2px solid red", borderRight: "2px solid red" }}>
-		<Box component="img" src={product.image} alt="Product" sx={{ width: "20%" }} />
+	return <ListItem sx={CartItemList}>
+		<Box component="img" src={product.image} alt="Product" sx={BoxStyle} />
 		<Typography variant="h5">{product.name}</Typography>
 
-		<FormControl sx={{ width: "20%", marginRight: "40px" }}>
+		<FormControl sx={FormControlStyles}>
 			<InputLabel id="qty-label">Qty</InputLabel>
 			<Select
 				labelId="qty-label"

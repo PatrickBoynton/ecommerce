@@ -11,7 +11,7 @@ const AddToCart = () => {
 	const params = useParams()
 	const { product, setProduct } = useStoreProducts()
 	const { setCartItems, setQty } = useStoreCart()
-	const [ value, setValue ] = useState<string>()
+	const [ value ] = useState<string>()
 
 
 	const addToCartHandler = () => {

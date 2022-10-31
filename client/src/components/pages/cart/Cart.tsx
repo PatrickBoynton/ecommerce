@@ -6,12 +6,12 @@ import {
 import { useEffect, useState } from "react"
 import { useStoreCart } from "../../../store/store-cart"
 import Product from "../../../models/Product"
-import { borderRight } from "../../../styles/objectStyles"
+import { borderRight, deleteItemsStyles } from "../../../styles/objectStyles"
 import CartItem from "./CartItem"
 
 const Cart = () => {
     const { cartItems, getCartItems, setCartTotal, cartTotal } = useStoreCart()
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [, setTotalPrice] = useState(0)
 
     const price = cartItems && cartItems.map(item => item?.price)
     const qty = cartItems && cartItems.map(item => Number(item?.qty) || 1)
@@ -38,10 +38,10 @@ const Cart = () => {
     return <Grid container>
         <Grid item xs={8} sx={borderRight}>
             <Typography variant="h2">Shopping Cart</Typography>
-            {cartItems.length > 0 && <Typography variant="h4" sx={{ cursor: "pointer", color: "red" }} onClick={handleDeleteAllItems}>Delete
+            {cartItems.length > 0 && <Typography variant="h4" sx={deleteItemsStyles} onClick={handleDeleteAllItems}>Delete
                 All</Typography>}
             {cartItems ? <List>
-                {cartItems && cartItems.map((item, index) =>
+                {cartItems && cartItems.map((item) =>
                   <CartItem key={item?.id} product={item as Product}/>)}
             </List> : <Typography variant="h3">No items in your cart. </Typography>}
         </Grid>
