@@ -21,13 +21,12 @@ const CartItem = ({product}: Props) => {
 				defaultValue={product.qty || "1"}
 				value={product.qty || "1"}
 				label="Qty"
-				// onChange={handleChange}
 			>
-				{quantityLeft.map((item, index) => <MenuItem defaultValue={1} value={item} key={item}>{item}</MenuItem>)}
+				{quantityLeft.map((item) => <MenuItem defaultValue={1} value={item} key={item}>{item}</MenuItem>)}
 			</Select>
 		</FormControl>
 		<Typography variant="h5">Price: </Typography>
-		<Typography variant="h6">${product.price * Number((product?.qty || 1))}</Typography>
+		<Typography variant="h6">${(product.price * Number((product?.qty || 1))).toFixed(2)}</Typography>
 	</ListItem>
 }
 
