@@ -9,6 +9,7 @@ interface StoreCartState {
 	getCartItems: (cart: Partial<Product[]>) => void
 	setQty: (item: Partial<Product>, qty: string) => void
 	setCartTotal: (total: number) => void
+	deleteCartItems: () => void
 }
 
 
@@ -38,8 +39,15 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	},
 
 	setCartTotal: (total: number) => {
-		set((state) => ({
+		set(() => ({
 			cartTotal: total
+		}))
+	},
+
+	deleteCartItems: () => {
+		set(() => ({
+			cartItems: [],
+			cartTotal: 0
 		}))
 	}
 }))
