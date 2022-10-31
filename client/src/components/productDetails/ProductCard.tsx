@@ -5,7 +5,7 @@ import {
     CardMedia, Rating,
     Typography
 } from "@mui/material"
-import IProduct from "../models/Product"
+import IProduct from "../../models/Product"
 import { StarBorderOutlined } from "@mui/icons-material"
 import { Link } from "react-router-dom"
 

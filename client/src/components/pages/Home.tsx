@@ -1,5 +1,5 @@
 import { Container, Grid, Typography } from "@mui/material"
-import ProductCard from "../ProductCard"
+import ProductCard from "../productDetails/ProductCard"
 import { useStoreProducts } from "../../store/store-products"
 import { useEffect } from "react"
 import Product from "../../models/Product"
