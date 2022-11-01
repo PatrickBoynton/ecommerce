@@ -1,6 +1,8 @@
 import { Box, FormControl, InputLabel, ListItem, MenuItem, Select, Typography } from "@mui/material"
 import Product from "../../../models/Product"
 import { BoxStyle, CartItemList, FormControlStyles } from "../../../styles/objectStyles"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
 interface Props {
 	product: Product
@@ -27,7 +29,8 @@ const CartItem = ({product}: Props) => {
 			</Select>
 		</FormControl>
 		<Typography variant="h5">Price: </Typography>
-		<Typography variant="h6">${(product.price * Number((product?.qty || 1))).toFixed(2)}</Typography>
+		<Typography variant="h6" sx={{paddingRight: "5px"}}>${(product.price * Number((product?.qty || 1))).toFixed(2)}</Typography>
+		<FontAwesomeIcon style={{color: "red", cursor: "pointer"}} icon={faTrash} />
 	</ListItem>
 }
 
