@@ -15,8 +15,9 @@ const AddToCart = () => {
 
 
 	const addToCartHandler = () => {
-		setCartItems(product as Product)
 		if(product) navigate(`/cart/${params.id}`)
+		setCartItems(product as Product)
+		navigate("/cart")
 		// useStoreCart.subscribe(console.log)
 	}
 
