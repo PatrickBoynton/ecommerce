@@ -4,8 +4,8 @@ import Product from "../models/Product"
 interface StoreCartState {
 	cartItems: Partial<Product[]>
 	cartTotal: number
-	qty: number[]
-	setCartItems: (item: Product) => void,
+	setCartItems: (item: Product) => void
+	getStorageItems: () => void
 	getCartItems: (cart: Partial<Product[]>) => void
 	setQty: (item: Partial<Product>, qty: string) => void
 	setCartTotal: (total: number) => void
@@ -15,7 +15,6 @@ interface StoreCartState {
 
 export const useStoreCart = create<StoreCartState>((set) => ({
 	cartItems: [],
-	qty: [],
 	cartStorage: [],
 	cartTotal: 0,
 	setCartItems: (item: Product) => {
@@ -24,6 +23,13 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 				cartItems: [item, ...state.cartItems],
 			}))
 		}
+	},
+
+	getStorageItems: () => {
+		const cartInStorage = JSON.parse(localStorage.getItem("cart") || "")
+		set(() => ({
+				cartItems: [...cartInStorage]
+		}))
 	},
 
 	getCartItems: (cart: Partial<Product[]>) => {
