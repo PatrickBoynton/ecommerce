@@ -12,7 +12,7 @@ import { borderRight, deleteItemsStyles } from "../../../styles/objectStyles"
 import CartItem from "./CartItem"
 
 const Cart = () => {
-    const { cartItems, getCartItems, setCartTotal, cartTotal, deleteCartItems } = useStoreCart()
+    const { cartItems, getCartItems, setCartTotal, cartTotal, deleteCartItems, getStorageItems } = useStoreCart()
     const [, setTotalPrice] = useState(0)
 
     const price = cartItems && cartItems.map(item => item?.price)
@@ -33,6 +33,10 @@ const Cart = () => {
         setCartTotal(sum)
     }, [setCartTotal, sum])
 
+    useEffect(() => {
+        getStorageItems()
+    }, [getStorageItems])
+
 
     const handleDeleteAllItems = () => {
         localStorage.removeItem("cart")
@@ -44,7 +48,7 @@ const Cart = () => {
             {cartItems.length > 0 && <Typography variant="h4" sx={deleteItemsStyles} onClick={handleDeleteAllItems}>Delete
                 All</Typography>}
             {cartItems ? <List>
-                {cartItems && cartItems.map((item) =>
+                {cartItems.map((item) =>
                   <CartItem key={item?.id} product={item as Product}/>)}
             </List> : <Typography variant="h3">No items in your cart. </Typography>}
         </Grid>
