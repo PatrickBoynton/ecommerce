@@ -12,7 +12,6 @@ interface StoreCartState {
 	deleteCartItems: () => void
 }
 
-
 export const useStoreCart = create<StoreCartState>((set) => ({
 	cartItems: [],
 	cartStorage: [],
@@ -39,8 +38,6 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	setQty: (item: Partial<Product>, qty: string) => {
 		if (qty !== undefined && qty) {
 			item["qty"] = qty
-		} else {
-			item["qty"] = "1"
 		}
 	},
 
@@ -55,5 +52,6 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 			cartItems: [],
 			cartTotal: 0
 		}))
+		localStorage.removeItem("cart")
 	}
 }))
