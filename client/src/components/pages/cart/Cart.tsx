@@ -5,29 +5,21 @@ import {
     Typography,
     Select, MenuItem, Button
 } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useStoreCart } from "../../../store/store-cart"
 import Product from "../../../models/Product"
 import { borderRight, deleteItemsStyles } from "../../../styles/objectStyles"
 import CartItem from "./CartItem"
 
 const Cart = () => {
-    const { cartItems, getCartItems, setCartTotal, cartTotal, deleteCartItems, getStorageItems } = useStoreCart()
-    const [, setTotalPrice] = useState(0)
+    const { cartItems, setCartTotal, cartTotal, deleteCartItems, getStorageItems } = useStoreCart()
 
-    const price = cartItems && cartItems.map(item => item?.price)
-    const qty = cartItems && cartItems.map(item => Number(item?.qty) || 1)
+    const products = JSON.parse(localStorage.getItem("cart") as string)
+    const price = products?.map((item: Product) => item?.price)
+    const qty = products?.map((item: Product) => Number(item?.qty) || 1)
 
-    const sum = price.map((num, idk) => Number(num) * qty[idk])
-      .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
-
-    useEffect(() => {
-        getCartItems(cartItems)
-    }, [getCartItems, cartItems])
-
-    useEffect(() => {
-        setTotalPrice(cartTotal)
-    },[ setTotalPrice, cartTotal, cartItems])
+    const sum = price.map((num: number, idk: number) => Number(num) * qty[idk])
+      .reduce((previousValue: number, currentValue: number) => previousValue + currentValue, 0)
 
     useEffect(() => {
         setCartTotal(sum)
@@ -39,7 +31,6 @@ const Cart = () => {
 
 
     const handleDeleteAllItems = () => {
-        localStorage.removeItem("cart")
         deleteCartItems()
     }
     return <Grid container>
