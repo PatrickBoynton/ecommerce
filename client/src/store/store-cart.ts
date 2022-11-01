@@ -25,10 +25,12 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	},
 
 	getStorageItems: () => {
-		const cartInStorage = JSON.parse(localStorage.getItem("cart") || "")
-		set(() => ({
+		const cartInStorage: Product[] = JSON.parse(localStorage.getItem("cart") as string)
+		if(cartInStorage !== null) {
+			set(() => ({
 				cartItems: [...cartInStorage]
-		}))
+			}))
+		}
 	},
 
 	getCartItems: (cart: Partial<Product[]>) => {

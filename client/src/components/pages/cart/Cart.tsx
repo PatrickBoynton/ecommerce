@@ -14,11 +14,10 @@ import CartItem from "./CartItem"
 const Cart = () => {
     const { cartItems, setCartTotal, cartTotal, deleteCartItems, getStorageItems } = useStoreCart()
 
-    const products = JSON.parse(localStorage.getItem("cart") as string)
-    const price = products?.map((item: Product) => item?.price)
-    const qty = products?.map((item: Product) => Number(item?.qty) || 1)
+    const price = cartItems?.map((item) => item?.price)
+    const qty = cartItems?.map((item) => Number(item?.qty) || 1)
 
-    const sum = price.map((num: number, idk: number) => Number(num) * qty[idk])
+    const sum = price?.map((num, idk: number) => Number(num) * qty[idk])
       .reduce((previousValue: number, currentValue: number) => previousValue + currentValue, 0)
 
     useEffect(() => {
