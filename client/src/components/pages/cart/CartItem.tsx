@@ -32,8 +32,20 @@ const CartItem = ({ product }: Props) => {
 	const { setQty, cartItems, editCartItems, getStorageItems } = useStoreCart()
 
 	const handleChange = (e: any) => {
+		const currentItem = cartItems.find((x) => x === product)
+
 		setVal(e.target.value)
 		setQty(product, e.target.value)
+
+		if (currentItem) currentItem["qty"] = e.target.value
+
+		cartItems.map((x) => {
+			return currentItem ? currentItem : x
+		})
+
+		localStorage.setItem("cart", JSON.stringify(cartItems))
+
+		getStorageItems()
 	}
 	return (
 		<ListItem sx={CartItemList}>
