@@ -6,7 +6,8 @@ import CartItemDisplay from "./CartItemDisplay"
 import OrderDetails from "./OrderDetails"
 
 const Cart = () => {
-	const { cartItems, setCartTotal, getStorageItems } = useStoreCart()
+	const { cartItems, setCartTotal, getStorageItems, getCartItems } =
+		useStoreCart()
 
 	const price = cartItems?.map((item) => item?.price)
 	const qty = cartItems?.map((item) => Number(item?.qty) || 1)
@@ -26,6 +27,10 @@ const Cart = () => {
 	useEffect(() => {
 		getStorageItems()
 	}, [getStorageItems])
+
+	useEffect(() => {
+		getCartItems(cartItems)
+	}, [getCartItems, cartItems])
 
 	return (
 		<Grid container>
