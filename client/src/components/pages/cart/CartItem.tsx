@@ -29,7 +29,7 @@ const CartItem = ({ product }: Props) => {
 	)
 	const itemTotal = product.price * Number(product?.qty)
 	const [val, setVal] = useState()
-	const { setQty } = useStoreCart()
+	const { setQty, cartItems, editCartItems, getStorageItems } = useStoreCart()
 
 	const handleChange = (e: any) => {
 		setVal(e.target.value)
@@ -69,6 +69,10 @@ const CartItem = ({ product }: Props) => {
 			<FontAwesomeIcon
 				style={{ color: "red", cursor: "pointer" }}
 				icon={faTrash}
+				onClick={() => {
+					editCartItems(product, cartItems)
+					getStorageItems()
+				}}
 			/>
 		</ListItem>
 	)

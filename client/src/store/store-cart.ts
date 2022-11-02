@@ -10,6 +10,7 @@ interface StoreCartState {
 	setQty: (item: Partial<Product>, qty: string) => void
 	setCartTotal: (total: number) => void
 	deleteCartItems: () => void
+	editCartItems: (product: Product, cart: Partial<Product[]>) => void
 }
 
 export const useStoreCart = create<StoreCartState>((set) => ({
@@ -17,7 +18,7 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	cartStorage: [],
 	cartTotal: 0,
 	setCartItems: (item: Product) => {
-		if(item) {
+		if (item) {
 			set((state) => ({
 				cartItems: [item, ...state.cartItems],
 			}))
@@ -25,16 +26,18 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	},
 
 	getStorageItems: () => {
-		const cartInStorage: Product[] = JSON.parse(localStorage.getItem("cart") as string)
-		if(cartInStorage !== null) {
+		const cartInStorage: Product[] = JSON.parse(
+			localStorage.getItem("cart") as string
+		)
+		if (cartInStorage !== null) {
 			set(() => ({
-				cartItems: [...cartInStorage]
+				cartItems: [...cartInStorage],
 			}))
 		}
 	},
 
 	getCartItems: (cart: Partial<Product[]>) => {
-		if(cart.length > 0) localStorage.setItem("cart", JSON.stringify(cart))
+		if (cart.length > 0) localStorage.setItem("cart", JSON.stringify(cart))
 	},
 
 	setQty: (item: Partial<Product>, qty: string) => {
@@ -45,15 +48,26 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 
 	setCartTotal: (total: number) => {
 		set(() => ({
-			cartTotal: total
+			cartTotal: total,
 		}))
 	},
 
 	deleteCartItems: () => {
 		set(() => ({
 			cartItems: [],
-			cartTotal: 0
+			cartTotal: 0,
 		}))
 		localStorage.removeItem("cart")
-	}
+	},
+
+	editCartItems: (product: Product, cartItems: Partial<Product[]>) => {
+		const item = cartItems.find((x) => x === product)
+		const index = cartItems.indexOf(item)
+
+		if (index !== -1) {
+			cartItems.splice(index, 1)
+		}
+
+		localStorage.setItem("cart", JSON.stringify(cartItems))
+	},
 }))
