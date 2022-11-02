@@ -7,7 +7,7 @@
         "react-app",
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "overrides": [
     ],
@@ -21,6 +21,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "react/react-in-jsx-scope": "off",
         "indent": [
             "error",
             "tab"
