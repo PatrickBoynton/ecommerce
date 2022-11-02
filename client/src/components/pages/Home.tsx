@@ -10,14 +10,18 @@ const Home = () => {
 		getProducts()
 	}, [getProducts])
 
-    return <Container>
-			<Typography variant='h2'>Featured Products</Typography>
+	return (
+		<Container>
+			<Typography variant="h2">Featured Products</Typography>
 			<Grid container spacing={2}>
-				{products.map((product: Product) => <Grid  xs={3} md={4} sm={12} key={product.id} item>
+				{products.map((product: Product) => (
+					<Grid xs={3} md={4} sm={12} key={product.id} item>
 						<ProductCard product={product} />
-					</Grid>)}
+					</Grid>
+				))}
 			</Grid>
-    </Container>
+		</Container>
+	)
 }
 
 export default Home

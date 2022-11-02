@@ -1,5 +1,5 @@
-import React from 'react';
-import './App.css';
+import React from "react"
+import "./App.css"
 import Header from "./components/pages/Header"
 import Footer from "./components/pages/Footer"
 import Home from "./components/pages/Home"
@@ -9,23 +9,23 @@ import Cart from "./components/pages/cart/Cart"
 import Login from "./components/pages/Login"
 
 const App = () => {
-  return (
-    <Router>
-      <Header/>
-      <main style={{padding: '20px 0'}}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login"  element={<Login />}/>
-            <Route path="product/:id" element={<SingleProduct/>}/>
-            <Route path="/cart">
-              <Route index element={<Cart/>}/>
-              <Route path=":id" element={<Cart/>}/>
-            </Route>
-          </Routes>
-      </main>
-      <Footer />
-    </Router>
-  );
+	return (
+		<Router>
+			<Header />
+			<main style={{ padding: "20px 0" }}>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="product/:id" element={<SingleProduct />} />
+					<Route path="/cart">
+						<Route index element={<Cart />} />
+						<Route path=":id" element={<Cart />} />
+					</Route>
+				</Routes>
+			</main>
+			<Footer />
+		</Router>
+	)
 }
 
-export default App;
+export default App

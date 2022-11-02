@@ -9,15 +9,29 @@ const CartItemDisplay = () => {
 	const handleDeleteAllItems = () => {
 		deleteCartItems()
 	}
-    return <>
+	return (
+		<>
 			<Typography variant="h2">Shopping Cart</Typography>
-			{cartItems.length > 0 && <Typography variant="h4" sx={deleteItemsStyles} onClick={handleDeleteAllItems}>Delete
-				All</Typography>}
-			{cartItems ? <List>
-				{cartItems.map((item) =>
-					<CartItem key={item?.id} product={item as Product}/>)}
-			</List> : <Typography variant="h3">No items in your cart. </Typography>}
-    </>
+			{cartItems.length > 0 && (
+				<Typography
+					variant="h4"
+					sx={deleteItemsStyles}
+					onClick={handleDeleteAllItems}
+				>
+					Delete All
+				</Typography>
+			)}
+			{cartItems ? (
+				<List>
+					{cartItems.map((item) => (
+						<CartItem key={item?.id} product={item as Product} />
+					))}
+				</List>
+			) : (
+				<Typography variant="h3">No items in your cart. </Typography>
+			)}
+		</>
+	)
 }
 
 export default CartItemDisplay

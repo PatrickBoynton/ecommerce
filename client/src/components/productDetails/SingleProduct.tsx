@@ -9,30 +9,29 @@ import ImageCarousel from "./singleProduct/ImageCarousel"
 import Reviews from "./singleProduct/Reviews"
 
 const SingleProduct = () => {
-    const params = useParams()
+	const params = useParams()
 
-    const { setProduct } = useStoreProducts()
+	const { setProduct } = useStoreProducts()
 
-    useEffect(() => {
-        setProduct(params.id as string)
-    }, [setProduct, params.id])
+	useEffect(() => {
+		setProduct(params.id as string)
+	}, [setProduct, params.id])
 
-    return <>
-        <Grid container spacing={3} sx={detailsGlobal}>
-            <ProductDetails />
-            <AddToCart />
-        </Grid>
-            {/*<ImageCarousel />*/}
-        <Grid container>
-            <Grid item xs={6} sx={{borderRight}}>
-                <Reviews />
-            </Grid>
-            <Grid xs={6} item>
-
-            </Grid>
-        </Grid>
-    </>
+	return (
+		<>
+			<Grid container spacing={3} sx={detailsGlobal}>
+				<ProductDetails />
+				<AddToCart />
+			</Grid>
+			{/*<ImageCarousel />*/}
+			<Grid container>
+				<Grid item xs={6} sx={{ borderRight }}>
+					<Reviews />
+				</Grid>
+				<Grid xs={6} item></Grid>
+			</Grid>
+		</>
+	)
 }
-
 
 export default SingleProduct
