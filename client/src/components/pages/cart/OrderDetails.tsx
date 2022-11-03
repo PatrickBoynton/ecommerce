@@ -6,9 +6,12 @@ import {
 	Typography,
 } from "@mui/material"
 import { useStoreCart } from "../../../store/store-cart"
+import { useState } from "react"
 
 const OrderDetails = () => {
 	const { cartTotal } = useStoreCart()
+	const [shippingTotal] = useState<number>(5.99)
+	const [tax] = useState<number>(0.06)
 	return (
 		<>
 			<Typography variant="h2">Order Total: </Typography>
@@ -32,10 +35,15 @@ const OrderDetails = () => {
 							<MenuItem value="Credit Card">Credit Card</MenuItem>
 						</Select>
 					</FormControl>
+					<Typography variant="h2">Shipping: </Typography>
+					<Typography>${shippingTotal}</Typography>
+					<Typography></Typography>
 					<Typography variant="h2">Tax: </Typography>
-					<Typography>6%</Typography>
+					<Typography>{tax * 100}%</Typography>
 					<Typography variant="h3">Subtotal: </Typography>
-					<Typography>{(cartTotal * 0.06 + cartTotal).toFixed(2)}</Typography>
+					<Typography>
+						{(cartTotal * tax + cartTotal + shippingTotal).toFixed(2)}
+					</Typography>
 					<Button sx={{ border: "4px solid red", color: "white" }}>
 						Submit Order
 					</Button>
