@@ -4,7 +4,7 @@ import Product from "../models/Product"
 interface StoreCartState {
 	cartItems: Partial<Product[]>
 	cartTotal: number
-	setCartItems: (item: Product) => void
+	setCartItems: (item: Product, cartItems: Partial<Product[]>) => void
 	getStorageItems: () => void
 	getCartItems: (cart: Partial<Product[]>) => void
 	setQty: (item: Partial<Product>, qty: string) => void
@@ -17,11 +17,25 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 	cartItems: [],
 	cartStorage: [],
 	cartTotal: 0,
-	setCartItems: (item: Product) => {
-		if (item) {
+	setCartItems: (item: Product, cartItems: Partial<Product[]>) => {
+		const existingProduct = cartItems.find((product) => product?.id === item.id)
+		if (item && !existingProduct) {
 			set((state) => ({
 				cartItems: [item, ...state.cartItems],
 			}))
+		} else {
+			const currentQty = Number(existingProduct?.qty)
+			const incomingQty = Number(item?.qty)
+			const newQty = currentQty + incomingQty
+
+			if (existingProduct && newQty < existingProduct.countInStock) {
+				existingProduct["qty"] = String(newQty)
+			} else if (
+				existingProduct &&
+				newQty > Number(existingProduct?.countInStock)
+			) {
+				existingProduct["qty"] = String(existingProduct?.countInStock)
+			}
 		}
 	},
 

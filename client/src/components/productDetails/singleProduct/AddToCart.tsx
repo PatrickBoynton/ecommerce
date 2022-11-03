@@ -14,12 +14,12 @@ const AddToCart = () => {
 	const navigate = useNavigate()
 	const params = useParams()
 	const { product, setProduct } = useStoreProducts()
-	const { setCartItems, setQty } = useStoreCart()
+	const { setCartItems, setQty, cartItems } = useStoreCart()
 	const [value] = useState<string>()
 
 	const addToCartHandler = () => {
 		if (product) navigate(`/cart/${params.id}`)
-		setCartItems(product as Product)
+		setCartItems(product as Product, cartItems)
 		navigate("/cart")
 		// useStoreCart.subscribe(console.log)
 	}
@@ -50,7 +50,7 @@ const AddToCart = () => {
 				</Button>
 				{(product.countInStock as number) > 0 && (
 					<Select
-						onChange={(e: any) => setQty(product, e.target.value)}
+						onChange={(e) => setQty(product, e.target.value)}
 						defaultValue={"1"}
 						value={value}
 						sx={selectStyling}
