@@ -1,23 +1,26 @@
+import { DataTypes, Model } from "sequelize"
 import sequelize from "../../config/sequelize"
-import { DataTypes } from "sequelize"
 
-const Cart = sequelize.define("cart", {
-	name: {
-		type: DataTypes.STRING,
-		allowNull: false,
+class Cart extends Model {
+	qty: number
+	totalPrice: number
+}
+
+Cart.init(
+	{
+		qty: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		totalPrice: {
+			type: DataTypes.FLOAT,
+			allowNull: false,
+		},
 	},
-	image: {
-		type: DataTypes.STRING,
-		allowNull: false,
-	},
-	qty: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
-	},
-	totalPrice: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
-	},
-})
+	{
+		sequelize,
+		tableName: "carts",
+	}
+)
 
 export default Cart
