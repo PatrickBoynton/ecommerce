@@ -4,6 +4,7 @@ import Review from "./Review"
 import Cart from "./Cart"
 
 class Product extends Model {
+	id: number
 	name: string
 	image: string
 	brand: string
