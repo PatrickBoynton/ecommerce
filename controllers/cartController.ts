@@ -63,3 +63,11 @@ export const createCartItem = async (req: Request, res: Response) => {
 		return res.status(500).send(e.message)
 	}
 }
+
+export const deleteCartItem = async (req: Request, res: Response) => {
+	const cartItem = await Cart.findByPk(req.params.id)
+
+	cartItem?.destroy()
+
+	return res.status(204).send("Item deleted")
+}
