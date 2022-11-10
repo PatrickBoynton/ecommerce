@@ -1,7 +1,9 @@
 import { DataTypes, Model } from "sequelize"
 import sequelize from "../../config/sequelize"
+import Product from "./Product"
 
 class Cart extends Model {
+	id: number
 	qty: number
 	totalPrice: number
 }
@@ -19,8 +21,11 @@ Cart.init(
 	},
 	{
 		sequelize,
-		tableName: "carts",
+		tableName: "cart",
 	}
 )
+
+Cart.hasMany(Product)
+Product.belongsTo(Cart)
 
 export default Cart
