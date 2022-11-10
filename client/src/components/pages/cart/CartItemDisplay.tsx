@@ -1,7 +1,8 @@
 import { useStoreCart } from "../../../store/store-cart"
 import { List, Typography } from "@mui/material"
 import { deleteItemsStyles } from "../../../styles/objectStyles"
-import CartItem from "./CartItem"
+import { useEffect, useState } from "react"
+import CartItemFromDb from "./CartItemFromDb"
 import Product from "../../../models/Product"
 
 const CartItemDisplay = () => {
@@ -9,6 +10,12 @@ const CartItemDisplay = () => {
 	const handleDeleteAllItems = () => {
 		deleteCartItems()
 	}
+	const { getCartFromDb, cart } = useStoreCart()
+
+	useEffect(() => {
+		getCartFromDb()
+	}, [getCartFromDb])
+
 	return (
 		<>
 			<Typography variant="h2">Shopping Cart</Typography>
@@ -21,10 +28,10 @@ const CartItemDisplay = () => {
 					Delete All
 				</Typography>
 			)}
-			{cartItems ? (
+			{cart ? (
 				<List>
-					{cartItems.map((item) => (
-						<CartItem key={item?.id} product={item as Product} />
+					{cart.map((item, index) => (
+						<CartItemFromDb key={item?.id} cart={item} />
 					))}
 				</List>
 			) : (
