@@ -4,8 +4,7 @@ import Product from "../data/models/Product"
 
 export const getCart = async (req: Request, res: Response) => {
 	try {
-		const cart = await Cart.findAll()
-
+		const cart: any = await Cart.findAll({ include: Product })
 		return res.send(cart)
 	} catch (e: any) {
 		console.error(e.message)
@@ -14,49 +13,40 @@ export const getCart = async (req: Request, res: Response) => {
 }
 
 export const getCartItem = async (req: Request, res: Response) => {
-	const cartItem = await Cart.findByPk(req.params.id)
+	const cartItem = await Cart.findByPk(req.params.id, { include: Product })
 	if (!cartItem) return res.status(200)
 	return res.send(cartItem)
 }
 
 export const createCartItem = async (req: Request, res: Response) => {
-	const { qty, ProductId } = req.body
+	const { qty, id } = req.body
 
 	try {
-		const product = await Product.findByPk(ProductId)
-		let existingItem: any = await Cart.findOne({ where: { ProductId } })
+		const product = await Product.findByPk(id)
 
 		if (product) {
-			if (product.countInStock > qty) {
-				const cartMath = Number((qty * product.price).toFixed(2))
-				const cartItem = {
-					qty,
-					totalPrice: cartMath,
-					ProductId: product.id,
-				}
-
-				if (existingItem) {
-					existingItem = {
-						qty,
-						totalPrice: cartMath,
-						ProductId: product.id,
-					}
-
-					await Cart.update(existingItem, {
-						where: { ProductId },
-					})
-
-					return res.send(existingItem)
-				} else {
-					await Cart.create(cartItem)
-
-					return res.status(201).send(cartItem)
-				}
-			} else {
-				return res.status(400).send("Please enter a valid amount.")
+			const cartItem = {
+				qty,
+				totalPrice: Number((qty * product.price).toFixed(2)),
 			}
-		} else {
-			return res.status(404).send("Product not found.")
+			const cartItemToSave = await Cart.build(cartItem)
+
+			if (!product.CartId) {
+				await cartItemToSave.save()
+				await product.update({ CartId: cartItemToSave.id })
+				return res.send(cartItemToSave)
+			} else {
+				const updatedCartItem = {
+					qty,
+					totalPrice: Number((qty * product.price).toFixed(2)),
+				}
+
+				await Cart.update(updatedCartItem, {
+					where: { id: product.CartId },
+				})
+				// return res.send(cartItemToSave)
+				return res.status(204).send("Cart Updated!")
+			}
 		}
 	} catch (e: any) {
 		console.log(e.message)
