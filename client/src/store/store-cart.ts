@@ -1,8 +1,11 @@
 import create from "zustand"
 import Product from "../models/Product"
+import axios from "axios"
+import Cart from "../models/Cart"
 
 interface StoreCartState {
 	cartItems: Partial<Product[]>
+	cart: Cart[]
 	cartTotal: number
 	setCartItems: (item: Product, cartItems: Partial<Product[]>) => void
 	getStorageItems: () => void
@@ -11,13 +14,15 @@ interface StoreCartState {
 	setCartTotal: (total: number) => void
 	deleteCartItems: () => void
 	editCartItems: (product: Product, cart: Partial<Product[]>) => void
+	getCartFromDb: () => void
 }
 
 export const useStoreCart = create<StoreCartState>((set) => ({
 	cartItems: [],
+	cart: [],
 	cartStorage: [],
 	cartTotal: 0,
-	setCartItems: (item: Product, cartItems: Partial<Product[]>) => {
+	setCartItems: async (item: Product, cartItems: Partial<Product[]>) => {
 		const existingProduct = cartItems.find((product) => product?.id === item.id)
 		if (item && !existingProduct) {
 			set((state) => ({
@@ -83,5 +88,16 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 		}
 
 		localStorage.setItem("cart", JSON.stringify(cartItems))
+	},
+
+	getCartFromDb: async () => {
+		const response = await axios.get<Cart[]>("api/cart")
+		const cart = response.data
+		const total = cart.map((x) => x.totalPrice).reduce((a, b) => a + b)
+
+		set(() => ({
+			cart: [...cart],
+			cartTotal: total,
+		}))
 	},
 }))
