@@ -17,6 +17,8 @@ app.use(express.json())
 
 app.use("/api/cart", cartRoutes)
 
+app.use("/api/cart/:id", cartRoutes)
+
 app.use("/api/products", productRoutes)
 
 app.use("/api/users", userRoutes)
