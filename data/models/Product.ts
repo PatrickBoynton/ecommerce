@@ -1,7 +1,5 @@
 import sequelize from "../../config/sequelize"
 import { DataTypes, Model } from "sequelize"
-import Review from "./Review"
-import Cart from "./Cart"
 
 class Product extends Model {
 	id: number
@@ -14,8 +12,10 @@ class Product extends Model {
 	numReviews: number
 	price: number
 	countInStock: number
+	qty?: number
 	createdAt: Date
 	updatedAt: Date
+	CartId: number
 }
 
 Product.init(
@@ -75,7 +75,5 @@ Product.init(
 	}
 )
 
-Product.hasMany(Review)
-Product.hasMany(Cart)
-
+// Product.hasMany(Review)
 export default Product

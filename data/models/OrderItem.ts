@@ -4,20 +4,20 @@ import { DataTypes } from "sequelize"
 const OrderItem = sequelize.define("order_items", {
 	name: {
 		type: DataTypes.STRING,
-		allowNull: false
+		allowNull: false,
 	},
 	quantity: {
 		type: DataTypes.INTEGER,
-		allowNull: false
+		allowNull: false,
 	},
 	image: {
 		type: DataTypes.STRING,
-		allowNull: false
+		allowNull: false,
 	},
 	price: {
 		type: DataTypes.FLOAT,
-		allowNull: false
-	}
+		allowNull: false,
+	},
 })
 
 export default OrderItem
