@@ -15,6 +15,7 @@ interface StoreCartState {
 	deleteCartItems: () => void
 	editCartItems: (product: Product, cart: Partial<Product[]>) => void
 	getCartFromDb: () => void
+	addToCartDb: (cart: Partial<Product>) => void
 }
 
 export const useStoreCart = create<StoreCartState>((set) => ({
@@ -99,5 +100,14 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 			cart: [...cart],
 			cartTotal: total,
 		}))
+	},
+
+	addToCartDb: async (cartItem: Partial<Product>) => {
+		const item = {
+			qty: cartItem.qty,
+			id: cartItem.id,
+		}
+		console.log(item)
+		await axios.post("/api/cart", item)
 	},
 }))

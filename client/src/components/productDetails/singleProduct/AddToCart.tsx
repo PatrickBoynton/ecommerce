@@ -14,12 +14,13 @@ const AddToCart = () => {
 	const navigate = useNavigate()
 	const params = useParams()
 	const { product, setProduct } = useStoreProducts()
-	const { setCartItems, setQty, cartItems } = useStoreCart()
+	const { setCartItems, setQty, cartItems, addToCartDb } = useStoreCart()
 	const [value] = useState<string>()
 
 	const addToCartHandler = () => {
 		if (product) navigate(`/cart/${params.id}`)
 		setCartItems(product as Product, cartItems)
+		addToCartDb(product)
 		navigate("/cart")
 		// useStoreCart.subscribe(console.log)
 	}
