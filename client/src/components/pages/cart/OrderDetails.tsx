@@ -5,22 +5,25 @@ import {
 	Select,
 	Typography,
 } from "@mui/material"
-import { useStoreCart } from "../../../store/store-cart"
-import { useState } from "react"
+import { useStoreOrder } from "../../../store/store-order"
+import { useEffect } from "react"
 
 const OrderDetails = () => {
-	const { cartTotal } = useStoreCart()
-	const [shippingTotal] = useState<number>(5.99)
-	const [tax] = useState<number>(0.06)
+	const { total, tax, shipping, setSubtotal, paymentMethod, subtotal } =
+		useStoreOrder()
+
+	useEffect(() => {
+		setSubtotal()
+	}, [setSubtotal])
+
+	console.log(shipping)
 	return (
 		<>
 			<Typography variant="h2">Order Total: </Typography>
 			<Typography variant="h3">
-				{cartTotal !== undefined && cartTotal
-					? "$" + cartTotal.toFixed(2)
-					: "$0.00"}
+				{total !== undefined && total ? "$" + total : "$0.00"}
 			</Typography>
-			{cartTotal && (
+			{total && (
 				<>
 					<Typography variant="h3">Payment Method: </Typography>
 					<FormControl sx={{ width: "40%" }}>
@@ -31,19 +34,20 @@ const OrderDetails = () => {
 							value="Paypal"
 							label="Payment Method"
 						>
-							<MenuItem value="Paypal">Paypal</MenuItem>
-							<MenuItem value="Credit Card">Credit Card</MenuItem>
+							{paymentMethod.map((x) => (
+								<MenuItem key={x} value={x}>
+									{x}
+								</MenuItem>
+							))}
 						</Select>
 					</FormControl>
 					<Typography variant="h2">Shipping: </Typography>
-					<Typography>${shippingTotal}</Typography>
+					<Typography>${shipping}</Typography>
 					<Typography></Typography>
 					<Typography variant="h2">Tax: </Typography>
 					<Typography>{tax * 100}%</Typography>
 					<Typography variant="h3">Subtotal: </Typography>
-					<Typography>
-						{(cartTotal * tax + cartTotal + shippingTotal).toFixed(2)}
-					</Typography>
+					<Typography>{subtotal.toFixed(2)}</Typography>
 					<Button sx={{ border: "4px solid red", color: "white" }}>
 						Submit Order
 					</Button>
