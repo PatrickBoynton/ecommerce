@@ -69,3 +69,14 @@ export const deleteAllCartItems = async (req: Request, res: Response) => {
 
 	return res.status(204)
 }
+
+export const getCartTotal = async (req: Request, res: Response) => {
+	const cart = await Cart.findAll()
+
+	const total = cart
+		.map((item) => item.totalPrice)
+		.reduce((prev, cur) => prev + cur)
+	console.log(total)
+
+	return res.json(total)
+}

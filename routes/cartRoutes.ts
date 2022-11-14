@@ -5,9 +5,12 @@ import {
 	createCartItem,
 	deleteCartItem,
 	deleteAllCartItems,
+	getCartTotal,
 } from "../controllers/cartController"
 
 const router = Router()
+
+router.get("/total", getCartTotal)
 
 router.get("/", getCart)
 
