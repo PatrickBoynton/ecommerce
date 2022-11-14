@@ -61,3 +61,11 @@ export const deleteCartItem = async (req: Request, res: Response) => {
 
 	return res.status(204).send("Item deleted")
 }
+
+export const deleteAllCartItems = async (req: Request, res: Response) => {
+	const cart = await Cart.findAll()
+
+	cart.forEach((item) => item.destroy())
+
+	return res.status(204)
+}

@@ -4,6 +4,7 @@ import {
 	getCartItem,
 	createCartItem,
 	deleteCartItem,
+	deleteAllCartItems,
 } from "../controllers/cartController"
 
 const router = Router()
@@ -11,6 +12,8 @@ const router = Router()
 router.get("/", getCart)
 
 router.get("/:id", getCartItem)
+
+router.delete("/", deleteAllCartItems)
 
 router.delete("/:id", deleteCartItem)
 
