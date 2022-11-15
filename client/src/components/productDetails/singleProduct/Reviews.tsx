@@ -1,34 +1,41 @@
-import { Rating, Typography } from "@mui/material"
-import { useStoreProducts } from "../../../store/store-products"
-import { useState } from "react"
+import { Typography } from "@mui/material"
+import { useEffect } from "react"
+import { useStoreReview } from "../../../store/store-review"
+import ReviewItem from "./ReviewItem"
+import { useParams } from "react-router-dom"
 
 const Reviews = () => {
-	const { product } = useStoreProducts()
-	const [value, setValue] = useState<number | null>(2)
+	const params = useParams()
+	const { reviews, getReviews, setNumReviews, setAvgReviews, avgReviews } =
+		useStoreReview()
+
+	useEffect(() => {
+		getReviews()
+	}, [getReviews])
+
+	useEffect(() => {
+		const currentReviews = []
+		const ratings: number[] = []
+		reviews
+			?.filter((review) => String(review.ProductId) === params.id)
+			.map((review) => {
+				currentReviews.push(review)
+				ratings.push(review.rating)
+			})
+		setAvgReviews(
+			ratings.reduce((a, b) => Math.ceil((a + b) / ratings.length), 0)
+		)
+		setNumReviews(currentReviews.length)
+	}, [params.id, reviews, setNumReviews, setAvgReviews])
 
 	return (
 		<>
 			<Typography variant="h1">Reviews</Typography>
-			<Typography variant="h2">This product is awesome 5 stars!</Typography>
-			<Rating
-				value={product?.rating}
-				defaultValue={product?.rating}
-				onChange={(event, newValue) => {
-					setValue(newValue)
-				}}
-			/>
-			<Typography variant="body1">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid
-				amet aspernatur expedita labore non officia quibusdam ratione saepe
-				sint.
-			</Typography>
-			<Typography variant="h2">Best gadget ever.</Typography>
-			<Rating defaultValue={product?.rating} value={product.rating} />
-			<Typography variant="body1">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid
-				amet aspernatur expedita labore non officia quibusdam ratione saepe
-				sint.
-			</Typography>
+			{reviews
+				?.filter((review) => String(review.ProductId) === params.id)
+				.map((review) => (
+					<ReviewItem key={review.id} review={review} avgReview={avgReviews} />
+				))}
 		</>
 	)
 }
