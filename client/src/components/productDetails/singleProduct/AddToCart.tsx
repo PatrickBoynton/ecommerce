@@ -8,20 +8,21 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useStoreProducts } from "../../../store/store-products"
 import { useStoreCart } from "../../../store/store-cart"
 import { useEffect, useState } from "react"
-import Product from "../../../models/Product"
+import { useStoreOrder } from "../../../store/store-order"
 
 const AddToCart = () => {
 	const navigate = useNavigate()
 	const params = useParams()
 	const { product, setProduct } = useStoreProducts()
-	const { setCartItems, setQty, cartItems, addToCartDb } = useStoreCart()
+	const { setQty, addToCartDb } = useStoreCart()
+	const { setTotal } = useStoreOrder()
 	const [value] = useState<string>()
 
 	const addToCartHandler = () => {
 		if (product) navigate(`/cart/${params.id}`)
-		setCartItems(product as Product, cartItems)
-		addToCartDb(product)
 		navigate("/cart")
+		addToCartDb(product)
+		setTotal()
 		// useStoreCart.subscribe(console.log)
 	}
 
