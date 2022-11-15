@@ -6,6 +6,7 @@ import notFound from "./middleware/notFound"
 import statusMessage from "./middleware/statusMessage"
 import userRoutes from "./routes/userRoutes"
 import cartRoutes from "./routes/cartRoutes"
+import reviewRoutes from "./routes/reviewRoutes"
 
 dotenv.config({ path: "./config/.env" })
 
@@ -14,6 +15,8 @@ const app = express()
 app.use(express.static("public"))
 
 app.use(express.json())
+
+app.use("/api/reviews", reviewRoutes)
 
 app.use("/api/cart", cartRoutes)
 
