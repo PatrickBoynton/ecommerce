@@ -15,8 +15,6 @@ const OrderDetails = () => {
 	useEffect(() => {
 		setSubtotal()
 	}, [setSubtotal])
-
-	console.log(shipping)
 	return (
 		<>
 			<Typography variant="h2">Order Total: </Typography>
