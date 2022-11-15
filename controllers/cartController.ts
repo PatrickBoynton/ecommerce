@@ -75,7 +75,7 @@ export const getCartTotal = async (req: Request, res: Response) => {
 
 	const total = cart
 		.map((item) => item.totalPrice)
-		.reduce((prev, cur) => prev + cur)
+		.reduce((prev, cur) => prev + cur, 0)
 	console.log(total)
 
 	return res.json(total)
