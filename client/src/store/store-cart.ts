@@ -17,6 +17,7 @@ interface StoreCartState {
 	getCartFromDb: () => void
 	addToCartDb: (cart: Partial<Product>) => void
 	deleteCartDb: () => void
+	deleteSingleItemDb: (id: number) => void
 }
 
 export const useStoreCart = create<StoreCartState>((set) => ({
@@ -94,13 +95,10 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 
 	getCartFromDb: async () => {
 		const response = await axios.get<Cart[]>("api/cart")
-		const response2 = await axios.get<number>("api/cart/total ")
 		const cart = response.data
-		const total = response2.data
 
 		set(() => ({
 			cart: [...cart],
-			cartTotal: total,
 		}))
 	},
 
@@ -111,14 +109,27 @@ export const useStoreCart = create<StoreCartState>((set) => ({
 		}
 
 		await axios.post("/api/cart", item)
+		const cart = await axios.get("/api/cart")
+		set(() => ({
+			cart: [cartItem, ...cart.data],
+		}))
 	},
 
 	deleteCartDb: async () => {
 		await axios.delete("/api/cart")
+		const cart = await axios.get("api/cart")
 
 		set(() => ({
-			cart: [],
-			cartTotal: 0,
+			cart: [...cart.data],
+		}))
+	},
+
+	deleteSingleItemDb: async (id: number) => {
+		await axios.delete(`api/cart/${id}`)
+		const cart = await axios.get("api/cart")
+
+		set(() => ({
+			cart: [...cart.data],
 		}))
 	},
 }))
