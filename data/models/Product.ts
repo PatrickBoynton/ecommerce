@@ -1,5 +1,6 @@
 import sequelize from "../../config/sequelize"
 import { DataTypes, Model } from "sequelize"
+import Review from "./Review"
 
 class Product extends Model {
 	id: number
@@ -75,5 +76,6 @@ Product.init(
 	}
 )
 
-// Product.hasMany(Review)
+Product.hasMany(Review)
+Review.belongsTo(Product)
 export default Product
