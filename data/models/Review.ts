@@ -11,9 +11,12 @@ const Review = sequelize.define("reviews", {
 		allowNull: false,
 		defaultValue: 0,
 	},
-	comment: {
+	title: {
 		type: DataTypes.STRING,
 		allowNull: false,
+	},
+	comment: {
+		type: DataTypes.STRING,
 	},
 })
 
