@@ -4,6 +4,7 @@ import {
 	getProducts,
 	addProducts,
 	editProducts,
+	deleteProduct,
 } from "../controllers/productsController"
 
 const router = Router()
@@ -15,5 +16,7 @@ router.post("/", addProducts)
 router.get("/:id", getProduct)
 
 router.patch("/:id", editProducts)
+
+router.delete("/:id", deleteProduct)
 
 export default router

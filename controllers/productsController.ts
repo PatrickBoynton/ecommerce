@@ -61,10 +61,27 @@ export const editProducts = async (req: Request, res: Response) => {
 			countInStock,
 		}
 
-		if (product) product?.update(updatedProduct)
+		if (product) await product?.update(updatedProduct)
 		return res.send(product)
 	} catch (e: any) {
 		console.error(e.message)
 		return res.status(500).send("Something went wrong.")
+	}
+}
+
+export const deleteProduct = async (req: Request, res: Response) => {
+	const product = await Product.findByPk(req.params.id)
+
+	try {
+		if (product) {
+			await product?.destroy()
+			console.log("DESTROYED")
+			// res.status(204)
+		} else {
+			return res.status(404).send("Product does not exist.")
+		}
+	} catch (e: any) {
+		console.error(e.message)
+		return res.send("Something went wrong.")
 	}
 }
