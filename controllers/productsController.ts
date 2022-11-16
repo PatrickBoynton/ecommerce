@@ -6,11 +6,10 @@ export const getProducts = async (req: Request, res: Response) => {
 		const products = await Product.findAll()
 
 		res.send(products)
-	} catch(e: any) {
+	} catch (e: any) {
 		console.error(e.message)
 		res.status(500).send("Server error.")
 	}
-
 }
 
 export const getProduct = async (req: Request, res: Response) => {
@@ -18,8 +17,30 @@ export const getProduct = async (req: Request, res: Response) => {
 
 	try {
 		res.send(product)
-	} catch(e: any) {
+	} catch (e: any) {
 		console.error(e.message)
 		res.status(500).send("Server error")
+	}
+}
+
+export const addProducts = async (req: Request, res: Response) => {
+	const { name, image, brand, category, description, price, countInStock } =
+		req.body
+	try {
+		const newProduct = {
+			name,
+			image,
+			brand,
+			category,
+			description,
+			price,
+			countInStock,
+			numReviews: 0,
+		}
+		await Product.create(newProduct)
+		return res.status(201).send(newProduct)
+	} catch (e: any) {
+		console.error(e.message)
+		return res.status(500).send("Something went wrong.")
 	}
 }
