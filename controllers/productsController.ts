@@ -44,3 +44,27 @@ export const addProducts = async (req: Request, res: Response) => {
 		return res.status(500).send("Something went wrong.")
 	}
 }
+
+export const editProducts = async (req: Request, res: Response) => {
+	const { name, image, brand, category, description, price, countInStock } =
+		req.body
+	try {
+		const product = await Product.findByPk(req.params.id)
+
+		const updatedProduct = {
+			name,
+			image,
+			brand,
+			category,
+			description,
+			price,
+			countInStock,
+		}
+
+		if (product) product?.update(updatedProduct)
+		return res.send(product)
+	} catch (e: any) {
+		console.error(e.message)
+		return res.status(500).send("Something went wrong.")
+	}
+}
