@@ -1,17 +1,13 @@
 import { Rating, Typography } from "@mui/material"
 import { useState } from "react"
 import Review from "../../../models/Review"
-import { useParams } from "react-router-dom"
 
 interface Props {
 	review: Review
 	avgReview: number
 }
 
-const ReviewItem = ({ review, avgReview }: Props) => {
-	console.log("avgReview: ", avgReview)
-	const params = useParams()
-	console.log("review: ", String(review.ProductId) === params.id)
+const ReviewItem = ({ review }: Props) => {
 	const [, setValue] = useState<number | null>(2)
 	return (
 		<>
