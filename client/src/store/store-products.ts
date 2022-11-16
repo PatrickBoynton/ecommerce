@@ -1,12 +1,10 @@
 import create from "zustand"
 import Product from "../models/Product"
 import axios from "axios"
-import products from "../products"
 
 interface ProductsState {
-	products:  Product[]
+	products: Product[]
 	product: Partial<Product>
-	quantityLeft: number[]
 	getProducts: () => void
 	setProduct: (id: string) => void
 }
@@ -14,18 +12,17 @@ interface ProductsState {
 export const useStoreProducts = create<ProductsState>((set) => ({
 	products: [],
 	product: {},
-	quantityLeft: [],
 
 	getProducts: async () => {
 		const prods = await axios.get("/api/products")
-		set((state) => ({
-			products: [...prods.data]
+		set(() => ({
+			products: [...prods.data],
 		}))
 	},
 
 	setProduct: (id: string) => {
-		set(state => ({
-				product: products.find(p => String(p.id) === id) as Product
+		set((state) => ({
+			product: state.products.find((p) => String(p.id) === id) as Product,
 		}))
 	},
 }))

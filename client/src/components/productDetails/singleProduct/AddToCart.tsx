@@ -40,8 +40,9 @@ const AddToCart = () => {
 			<Grid item xs={4} sx={rightPanel}>
 				<Typography variant="h3">${product?.price}</Typography>
 				<Typography variant="h3">
-					{(product?.countInStock as number) > 0 ? "In Stock" : "Out of Stock"}{" "}
-					{product?.countInStock} left{" "}
+					{(product?.countInStock as number) > 0
+						? "In Stock " + product?.countInStock
+						: "Out of Stock"}
 				</Typography>
 				<Button
 					sx={cartButton}
