@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import SingleProduct from "./components/productDetails/SingleProduct"
 import Cart from "./components/pages/cart/Cart"
 import Login from "./components/pages/Login"
+import ReviewForm from "./components/pages/ReviewForm"
 
 const App = () => {
 	return (
@@ -15,6 +16,7 @@ const App = () => {
 			<main style={{ padding: "20px 0" }}>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/write/:id" element={<ReviewForm />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="product/:id" element={<SingleProduct />} />
 					<Route path="/cart">
