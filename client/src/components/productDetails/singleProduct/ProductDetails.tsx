@@ -1,12 +1,13 @@
 import { Button, Grid, Rating, Typography } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useStoreProducts } from "../../../store/store-products"
 import { useState } from "react"
 
 const ProductDetails = () => {
 	const navigate = useNavigate()
+	const params = useParams()
 	const { product } = useStoreProducts()
-	const [value, setValue] = useState<number | null>(2)
+	const [, setValue] = useState<number | null>(2)
 
 	return (
 		<>
@@ -16,6 +17,7 @@ const ProductDetails = () => {
 			</Grid>
 			<Grid item xs={5}>
 				<Typography variant="h1">{product?.name}</Typography>
+				<Link to={`/write/${params.id}`}>Write Review</Link>
 				<Typography>Brand {product?.brand}</Typography>
 				<Typography>
 					<Rating
