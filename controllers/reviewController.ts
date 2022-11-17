@@ -3,24 +3,66 @@ import Review from "../data/models/Review"
 import Product from "../data/models/Product"
 
 export const postReview = async (req: Request, res: Response) => {
-	const { name, rating, title, comment, ProductId } = req.body
+	const { name, rating, title, comment } = req.body
+
+	const product = (await Product.findByPk(req.params.id)) as Product
+
 	const review = {
 		name,
 		rating,
 		title,
 		comment,
-		ProductId,
+		ProductId: product?.id,
 	}
 
 	try {
-		const product = await Product.findByPk(review.ProductId)
 		if (product) {
 			await Review.create(review)
+
+			product?.increment("numReviews")
+
+			const ratings = await Review.findAll({
+				attributes: ["rating"],
+				where: {
+					ProductId: product.id,
+				},
+				group: ["rating"],
+			})
+
+			const test: number[] = []
+
+			ratings.map((x) => test.push(x.rating))
+
+			const numRatings = ratings.length
+
+			const avg = Math.ceil(test.reduce((a, b) => (a + b) / numRatings))
+
+			const {
+				name,
+				image,
+				description,
+				brand,
+				category,
+				countInStock,
+				numReviews,
+			} = product
+
+			const updatedProduct = {
+				name,
+				image,
+				description,
+				brand,
+				category,
+				countInStock,
+				rating: avg,
+				numReviews,
+			}
+
+			product?.update(updatedProduct)
+			return res.json(product)
 		} else {
 			return res.status(404).send("Product not found.")
 		}
-
-		return res.status(201).json(review)
 	} catch (e: any) {
 		console.log(e.message)
 		return res.json(e.message)
