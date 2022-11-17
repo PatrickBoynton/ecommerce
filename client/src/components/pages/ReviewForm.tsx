@@ -1,10 +1,11 @@
 import { Button, Paper, Rating, TextField, Typography } from "@mui/material"
 import { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 
 const ReviewForm = () => {
 	const params = useParams()
+	const navigate = useNavigate()
 	const [val, setVal] = useState(0)
 
 	const handleSubmit = async (e: any) => {
@@ -22,7 +23,8 @@ const ReviewForm = () => {
 			ProductId: params.id,
 		}
 
-		await axios.post("/api/reviews", newReview)
+		await axios.post(`/api/reviews/${params.id}`, newReview)
+		navigate(`/product/${params.id}`)
 	}
 	return (
 		<Paper sx={{ color: "white" }}>
