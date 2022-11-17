@@ -3,7 +3,7 @@ import { getReviews, postReview } from "../controllers/reviewController"
 
 const router = Router()
 
-router.post("/", postReview)
+router.post("/:id", postReview)
 
 router.get("/", getReviews)
 
