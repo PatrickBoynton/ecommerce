@@ -7,9 +7,9 @@ import ShippingAddress from "../data/models/ShippingAddress"
 import Review from "../data/models/Review"
 import Cart from "../data/models/Cart"
 import PaymentResult from "../data/models/PaymentResult"
-// import reviews from "../data/reviews"
-// import users from "../data/users"
-// import products from "../data/products"
+import reviews from "../data/reviews"
+import users from "../data/users"
+import products from "../data/products"
 
 export const syncDb = async () => {
 	try {
@@ -23,11 +23,17 @@ export const syncDb = async () => {
 		await ShippingAddress.sync({ alter: false, logging: false })
 		await PaymentResult.sync({ alter: false, logging: false })
 
-		// await User.bulkCreate(users)
-		// await Product.bulkCreate(products)
-		// await Review.bulkCreate(reviews)
+		const usersDb = await User.findByPk(1)
+		const productsDb = await Product.findByPk(1)
+		const reviewsDb = await Review.findByPk(1)
+
+		if (!usersDb && !productsDb && !reviewsDb) {
+			await User.bulkCreate(users)
+			await Product.bulkCreate(products)
+			await Review.bulkCreate(reviews)
+		}
 	} catch (e: any) {
 		console.log("ERROR \n---------------------------------")
-		console.error(e.message)
+		console.error(e)
 	}
 }
