@@ -17,25 +17,23 @@ export const postReview = async (req: Request, res: Response) => {
 
 	try {
 		if (product) {
-			await Review.create(review)
-
-			product?.increment("numReviews")
-
 			const ratings = await Review.findAll({
 				attributes: ["rating"],
 				where: {
 					ProductId: product.id,
 				},
-				group: ["rating"],
 			})
+			await Review.create(review)
 
-			const test: number[] = []
+			product?.increment("numReviews")
 
-			ratings.map((x) => test.push(x.rating))
+			const ratingsToAvg: number[] = []
+
+			ratings.map((x) => ratingsToAvg.push(x.rating))
 
 			const numRatings = ratings.length
 
-			const avg = Math.ceil(test.reduce((a, b) => (a + b) / numRatings))
+			const avg = Math.ceil(ratingsToAvg.reduce((a, b) => (a + b) / numRatings))
 
 			const {
 				name,

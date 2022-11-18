@@ -1,11 +1,21 @@
 import sequelize from "../../config/sequelize"
 import { DataTypes, Model, Optional } from "sequelize"
-import IReview from "../interfaces/IReview"
 
-type ReviewCreationAttributes = Optional<IReview, "id">
-
-class Review extends Model<IReview, ReviewCreationAttributes> {
+interface ReviewAttributes {
 	id: number
+	name: string
+	rating: number
+	title: string
+	comment: string
+	// Optional to get around typescript error.
+	ProductId?: number
+}
+
+type ReviewCreationAttributes = Optional<ReviewAttributes, "id">
+
+class Review extends Model<ReviewAttributes, ReviewCreationAttributes> {
+	id: number
+	name: string
 	rating: number
 	title: string
 	comment: string
@@ -33,13 +43,10 @@ Review.init(
 		comment: {
 			type: DataTypes.STRING,
 		},
-		ProductId: {
-			type: DataTypes.INTEGER,
-		},
 	},
 	{
 		sequelize,
-		tableName: "review",
+		tableName: "reviews",
 	}
 )
 
