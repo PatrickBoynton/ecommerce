@@ -8,6 +8,7 @@ const ProductDetails = () => {
 	const params = useParams()
 	const { product } = useStoreProducts()
 	const [, setValue] = useState<number | null>(2)
+	const ratingValue = product?.rating || 0
 
 	return (
 		<>
@@ -23,8 +24,8 @@ const ProductDetails = () => {
 						<Typography>Brand {product?.brand}</Typography>
 						<Typography>
 							<Rating
-								value={product?.rating}
-								defaultValue={product?.rating}
+								value={ratingValue}
+								defaultValue={ratingValue}
 								onChange={(event, newValue) => {
 									setValue(newValue)
 								}}
