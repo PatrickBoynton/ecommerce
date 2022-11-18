@@ -5,17 +5,17 @@ import { useEffect } from "react"
 import { useStoreProducts } from "../../store/store-products"
 import ProductDetails from "./singleProduct/ProductDetails"
 import AddToCart from "./singleProduct/AddToCart"
-import ImageCarousel from "./singleProduct/ImageCarousel"
+// import ImageCarousel from "./singleProduct/ImageCarousel"
 import Reviews from "./singleProduct/Reviews"
 
 const SingleProduct = () => {
 	const params = useParams()
 
-	const { setProduct } = useStoreProducts()
+	const { getProduct } = useStoreProducts()
 
 	useEffect(() => {
-		setProduct(params.id as string)
-	}, [setProduct, params.id])
+		getProduct(params.id as string)
+	}, [params.id, getProduct])
 
 	return (
 		<>

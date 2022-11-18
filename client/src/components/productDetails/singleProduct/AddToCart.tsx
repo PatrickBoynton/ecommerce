@@ -7,13 +7,13 @@ import { Button, Grid, MenuItem, Select, Typography } from "@mui/material"
 import { useNavigate, useParams } from "react-router-dom"
 import { useStoreProducts } from "../../../store/store-products"
 import { useStoreCart } from "../../../store/store-cart"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useStoreOrder } from "../../../store/store-order"
 
 const AddToCart = () => {
 	const navigate = useNavigate()
 	const params = useParams()
-	const { product, setProduct } = useStoreProducts()
+	const { product } = useStoreProducts()
 	const { setQty, addToCartDb } = useStoreCart()
 	const { setTotal } = useStoreOrder()
 	const [value] = useState<string>()
@@ -25,10 +25,6 @@ const AddToCart = () => {
 		setTotal()
 		// useStoreCart.subscribe(console.log)
 	}
-
-	useEffect(() => {
-		setProduct(params.id as string)
-	}, [setProduct, params.id])
 
 	const quantityLeft = Array.from(
 		new Array(product?.countInStock),
@@ -51,18 +47,24 @@ const AddToCart = () => {
 				>
 					Add To Cart
 				</Button>
-				{(product.countInStock as number) > 0 && (
+				{(product ? (product.countInStock as number) : 0) > 0 && (
 					<Select
 						onChange={(e) => setQty(product, e.target.value)}
 						defaultValue={"1"}
 						value={value}
 						sx={selectStyling}
 					>
-						{quantityLeft.map((x: number) => (
-							<MenuItem value={x} key={x}>
-								{x}
-							</MenuItem>
-						))}
+						{product ? (
+							quantityLeft.map((x: number) => {
+								return (
+									<MenuItem value={x} key={x}>
+										{x}
+									</MenuItem>
+								)
+							})
+						) : (
+							<MenuItem>1</MenuItem>
+						)}
 					</Select>
 				)}
 			</Grid>

@@ -6,7 +6,8 @@ interface ProductsState {
 	products: Product[]
 	product: Partial<Product>
 	getProducts: () => void
-	setProduct: (id: string) => void
+	setProduct: (id: number) => void
+	getProduct: (id: string) => void
 }
 
 export const useStoreProducts = create<ProductsState>((set) => ({
@@ -20,9 +21,17 @@ export const useStoreProducts = create<ProductsState>((set) => ({
 		}))
 	},
 
-	setProduct: (id: string) => {
+	getProduct: async (id: string) => {
+		const product = await axios.get(`/api/products/${id}`)
+
+		set(() => ({
+			product: product.data,
+		}))
+	},
+
+	setProduct: (id: number) => {
 		set((state) => ({
-			product: state.products.find((p) => String(p.id) === id) as Product,
+			product: state.products.find((p) => p.id === id) as Product,
 		}))
 	},
 }))
